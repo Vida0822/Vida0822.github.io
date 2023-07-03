@@ -1,8 +1,8 @@
 ---
 published: true
-title:  "# 에러 There isn’t anything to compare  해결 "
-categories: coding
-tag: [java, 코딩] 
+title:  "에러 There isn’t anything to compare  해결 "
+categories: troubleshooting 
+tag: [java, Spring] 
 toc: true
 author_profile: false 
 ---
@@ -161,3 +161,15 @@ fork 되어있는거 확인...
 개망 블로그 삭제됨 ㅋㅋㅋㅋ github io 때려칩니다 ...
 
 내 1주일 어디감 
+
+
+
+----
+
+해결: 결국 다시 원본 minimal mistake 프로젝트 fork 로 받아서
+
+내 config 파일 오버라이트 
+
+및 기타 설정 파일들 수정해줌! 
+
+역시 삭제는 함부러 하는게 아니다...
