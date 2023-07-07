@@ -1,15 +1,11 @@
 ---
 published: true
-title:  "에러 There isn’t anything to compare  해결 "
+title:  "에러 Premature end of file  해결 "
 categories: troubleshooting 
 tag: [java, Spring] 
 toc: true
 author_profile: false 
 ---
-
-
-
-## 에러 Premature end of file  해결
 
 
 
