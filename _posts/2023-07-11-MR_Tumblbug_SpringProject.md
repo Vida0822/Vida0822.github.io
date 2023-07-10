@@ -1,10 +1,13 @@
 ---
+
 published: true
-title:  "에러 Premature end of file  해결 "
-categories: troubleshooting 
+title:  "텀블벅 스프링 프로젝트 회고(1)"
+categories: Memory
 tag: [java, Spring] 
 toc: true
 author_profile: false 
 
 ---
+
+
 

@@ -1,12 +1,12 @@
 ---
 published: true
-title:  "# 에러 There isn’t anything to compare  해결 "
+title:  "에러 There isn’t anything to compare  해결 "
 categories: coding
 tag: [java, 코딩] 
 toc: true
 author_profile: false 
 ---
-# 에러 There isn’t anything to compare  해결 
+# 
 
  
 
