@@ -1,7 +1,7 @@
 ---
 
 published: true
-title:  "극복, 그리고 성장_텀블벅 스프링 프로젝트 회고"
+title:  "극복, 그리고 성장_스프링 프로젝트 회고"
 categories: Memory
 tag: [java, Spring] 
 toc: true
