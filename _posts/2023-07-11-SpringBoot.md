@@ -524,6 +524,7 @@ public class HellobootApplication {
 			// servletContext : ServletContextInitializer - 서블릿을 서블릿 컨테이너에 추가해주는 클래스 (서블릿을 등록하는데 필요하는 작업을 수행)	
 
 			servletContext.addServlet("hello", new HttpServlet() {  // 서블릿 등록 
+                
 				@Override
 				protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 					
@@ -707,60 +708,35 @@ public class HellobootApplication {
 ```java
 GenericWebApplicationContext applicationContext = new GenericWebApplicationContext(){
 			// 익명 클래스
-
-			@Override
-			protected void onRefresh() {
-				super.onRefresh();
-				// 두번째 작업인 Servlet Container 를 만들고 초기화 하는 과정을 Spring Container 초기화 과정 중 일어나도록 수정 : Spring boot의 방식
-				TomcatServletWebServerFactory serverFactory = new TomcatServletWebServerFactory(8081);
-				WebServer webServer = serverFactory
-						.getWebServer(servletContext -> {
-			/*
-			servletContext.addServlet("frontController"
-					, new HttpServlet() {
-				@Override
-				protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-					// 공통기능 코딩~ : 인증, 보안, 다국어처리 ..
-
-					if (req.getRequestURI().equals("/hello")&&req.getMethod().equals(HttpMethod.GET.name())) {
-
-						String name = req.getParameter("name");
-
-						HelloController helloController = applicationContext.getBean(HelloController.class) ;
-						// 스프링 컨테이너 안에 HelloController 클래스 타입의 빈 객체가 하나뿐이라면 자료형만 지정해주는것만으로도 해당 빈 객체 호출
-						// servlet container는 helloController에 helloController 를 생성하던 뭐하던 신경쓰지 않고 그냥 스프링 컨테이너에서 갖다 씀
-						String ret = helloController.hello(name); // HelloController안의 hello()를 실행해 문자열을 리턴받은거임
-
-						resp.setContentType(MediaType.TEXT_PLAIN_VALUE);
-						resp.getWriter().println(ret); // 응답 body 에 작성
-					} else {
-						resp.setStatus(HttpStatus.NOT_FOUND.value()); // 404
-					}
-
-				} // service
-			}).addMapping("/*");  // addServlet // 이때부터 frontController 역할을 맡게 됨
-			*/
-							servletContext.addServlet("dispatcherServlet"
-									, new DispatcherServlet(this)).addMapping("/*");  // addServlet
-							// 매핑(요청 넘기기), 응답 body 작성 등 직접 코드 안해줘도 알아서 해줌 (매핑 정보만 빈객체에 작성해주면 됨)
-						}) ; // getWebServer
-				webServer.start();
-			} // onRefresh
-		};
-		applicationContext.registerBean(HelloController.class);
-		applicationContext.registerBean(SimpleHelloService.class);
-		applicationContext.refresh(); // 템플릿 메서드  => 훅 메서드: onRefresh
+	@Override
+	protected void onRefresh() {
+		super.onRefresh();
+		// 두번째 작업인 Servlet Container 를 만들고 초기화 하는 과정을 Spring Container 초기화 과정 중 일어나도록 수정 : Spring boot의 방식
+		TomcatServletWebServerFactory serverFactory = new TomcatServletWebServerFactory(8081);
+		WebServer webServer = serverFactory
+				.getWebServer(servletContext -> {
+			servletContext.addServlet("dispatcherServlet", new DispatcherServlet(this)).addMapping("/*"); 
+		// 매핑(요청 넘기기), 응답 body 작성 등 직접 코드 안해줘도 알아서 해줌 (매핑 정보만 빈객체에 작성해주면 됨)
+		}) ; // getWebServer
+		webServer.start();
+	} // onRefresh
+};
+applicationContext.registerBean(HelloController.class);
+applicationContext.registerBean(SimpleHelloService.class);
+applicationContext.refresh(); // 템플릿 메서드  => 훅 메서드: onRefresh
 ```
 
 
 
 
 
+### 7. 스프링 컨테이너 구성정보 
+
 코드를 Spring container의 Compenent 를 등록하고, 의존하고 있다면 어느 시점에 어떻게 주입해 줄 것인가를 스프링 컨테이너에 '구성정보'로 제공 (이전 : xml) 
 
 * 이전 : 클래스 정보를 registerBean 
 
-1. java 코드로 ! 
+#### 1. java 코드로 ! 
 
 FactoryMethod : object 생성하는 로직을 갖고 있는 메서드 => 빈 생성 + 조립 
 
@@ -779,7 +755,7 @@ public class HellobootApplication {
 		return new SimpleHelloService();
 	}
 
-
+     
 	public static void main(String[] args) {
 
 		// application context -> Spring container 생성
@@ -790,38 +766,12 @@ public class HellobootApplication {
 			@Override
 			protected void onRefresh() {
 				super.onRefresh();
-				// 두번째 작업인 Servlet Container 를 만들고 초기화 하는 과정을 Spring Container 초기화 과정 중 일어나도록 수정 : Spring boot의 방식
 				TomcatServletWebServerFactory serverFactory = new TomcatServletWebServerFactory(8081);
 				WebServer webServer = serverFactory
 						.getWebServer(servletContext -> {
-			/*
-			servletContext.addServlet("frontController"
-					, new HttpServlet() {
-				@Override
-				protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-					// 공통기능 코딩~ : 인증, 보안, 다국어처리 ..
-
-					if (req.getRequestURI().equals("/hello")&&req.getMethod().equals(HttpMethod.GET.name())) {
-
-						String name = req.getParameter("name");
-
-						HelloController helloController = applicationContext.getBean(HelloController.class) ;
-						// 스프링 컨테이너 안에 HelloController 클래스 타입의 빈 객체가 하나뿐이라면 자료형만 지정해주는것만으로도 해당 빈 객체 호출
-						// servlet container는 helloController에 helloController 를 생성하던 뭐하던 신경쓰지 않고 그냥 스프링 컨테이너에서 갖다 씀
-						String ret = helloController.hello(name); // HelloController안의 hello()를 실행해 문자열을 리턴받은거임
-
-						resp.setContentType(MediaType.TEXT_PLAIN_VALUE);
-						resp.getWriter().println(ret); // 응답 body 에 작성
-					} else {
-						resp.setStatus(HttpStatus.NOT_FOUND.value()); // 404
-					}
-
-				} // service
-			}).addMapping("/*");  // addServlet // 이때부터 frontController 역할을 맡게 됨
-			*/
+		
 							servletContext.addServlet("dispatcherServlet"
 									, new DispatcherServlet(this)).addMapping("/*");  // addServlet
-							// 매핑(요청 넘기기), 응답 body 작성 등 직접 코드 안해줘도 알아서 해줌 (매핑 정보만 빈객체에 작성해주면 됨)
 						}) ; // getWebServer
 				webServer.start();
 			} // onRefresh
@@ -851,7 +801,7 @@ Autowiring by type from bean name 'helloController' via factory method to bean n
 
 
 
-2. 스캐너 : 클래스 위에 직접 붙여줌 
+#### 2. 스캐너 : 클래스 위에 직접 붙여줌 
 
 빈객체로 등록하고 싶은 클래스 위에 직접 사용해줌 (위: 호출하는데서 작성)
 
@@ -873,7 +823,47 @@ Autowiring by type from bean name 'helloController' via factory method to bean n
 
 
 
-* MetaAnnotation : Annotaion (코드)위에 붙은 Annotaion 
+```java
+@MySpringBootApplication
+public class HellobootApplication {
+
+     
+	public static void main(String[] args) {
+
+	// application context -> Spring container 생성
+	//	GenericWebApplicationContext applicationContext = new GenericWebApplicationContext(){
+
+		AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext(){
+			// 자바 코드를 설정정보로 인식하는 Spring Container
+			@Override
+			protected void onRefresh() {
+				super.onRefresh();
+				TomcatServletWebServerFactory serverFactory = new TomcatServletWebServerFactory(8081);
+				WebServer webServer = serverFactory
+						.getWebServer(servletContext -> {
+		
+							servletContext.addServlet("dispatcherServlet"
+									, new DispatcherServlet(this)).addMapping("/*");  // addServlet
+						}) ; // getWebServer
+				webServer.start();
+			} // onRefresh
+		};
+		// applicationContext.registerBean(HelloController.class);
+		// applicationContext.registerBean(SimpleHelloService.class);
+		// 이거 대신 java 코드 구성정보 담은 클래스를 등록해줘야함
+		applicationContext.register(HellobootApplication.class);
+		applicationContext.refresh(); // 템플릿 메서드  => 훅 메서드: onRefresh
+
+
+	} // main
+} // HellobootApplication
+```
+
+
+
+### 8. MetaAnnotation 
+
+: Annotaion (코드)위에 붙은 Annotaion 
 
 => 이 MetaAnnotaion을 사용하면 그 아래에 있는 하위 Annotaion 들도 자동 반영됨 
 
@@ -929,26 +919,208 @@ public class HelloController {
 
 
 
-
+### 9. 서블릿 컨테이너도 빈으로 등록 
 
 * TomcatServletWebServerFactory, DispatcherServlet  => Application이 시작되려면 필요한 두 object
 
-  => Spring Bean으로 등록해 Spring Container 가 관리 
+  => Spring Bean으로 등록해 Spring Container 가 관리
+  
+   
 
-* ApplicationContextAware => setApplicationContext()
+=>**bean factory method 활용**  (다음 자동 구성 기능 수업에서 수정 예정 )
 
-  => 'lifecycle method' : Bean을 Container가 등록하고 관리하는 중 Container가 관리하는 Object를 bean 에 주입  
+```java
+@MySpringBootApplication
+public class HellobootApplication {
+	@Bean
+	public ServletWebServerFactory serverFactory (){
+		return new TomcatServletWebServerFactory(8081);
+	}
+	@Bean
+	public DispatcherServlet dispatcherServlet(){
+		return new DispatcherServlet() ; // 여기선 Spring Container (application Context)를 어떻게 넣어줌?
+	}
 
-  => 이런 종류의 interface를 구현해놓으면 Spring Container는 이 객체가 등록되는 시점에 setter 메서드로 넣어줘야겠구나! (이 setter 메서드 자체를 Spring Container 가 호출하는 거임! )
+	public static void main(String[] args) {
+
+		// application context -> Spring container 생성
+	//	GenericWebApplicationContext applicationContext = new GenericWebApplicationContext(){
+
+		AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext(){
+			// 자바 코드를 설정정보로 인식하는 Spring Container
+			@Override
+			protected void onRefresh() {
+                super.onRefresh();
+                // 	TomcatServletWebServerFactory serverFactory = new TomcatServletWebServerFactory(8081);
+                ServletWebServerFactory serverFactory = this.getBean(ServletWebServerFactory.class) ;
+                DispatcherServlet dispatcherServlet = this.getBean(DispatcherServlet.class) ;
+				// dispatcherServlet.setApplicationContext(this); 
+                // => 이거 지정 안해줘도 동작 잘함  : Bean의 생명주기 메서드 때문! 
+                
+                
+                WebServer webServer = serverFactory.getWebServer(servletContext -> {
+              //servletContext.addServlet("dispatcherServlet",new DispatcherServlet(this)).addMapping("/*"); 
+                    servletContext.addServlet("dispatcherServlet", dispatcherServlet).addMapping("/*");  
+                }) ; // getWebServer
+                webServer.start();
+            } // onRefresh
+		};
+		// applicationContext.registerBean(HelloController.class);
+		// applicationContext.registerBean(SimpleHelloService.class);
+		// 이거 대신 java 코드 구성정보 담은 클래스를 등록해줘야함
+		applicationContext.register(HellobootApplication.class);
+		applicationContext.refresh(); // 템플릿 메서드  => 훅 메서드: onRefresh
+
+
+	} // main
+} // HellobootApplication
+```
+
+
+
+ ㄴ *DispatcherServlet 에  Spring Container (application Context)를 어떻게 넣어줌?*
+
+자동으로 넣어짐 ! By  **lifecycle method**
+
+* DispatcherServlet : ApplicationContextAware interface를 구현함 
+
+  => setApplicationContext()
+
+```java
+public interface ApplicationContextAware extends Aware {
+
+	/**
+	 * Set the ApplicationContext that this object runs in.
+	 * Normally this call will be used to initialize the object.
+	 * <p>Invoked after population of normal bean properties but before an init callback such
+	 * as {@link org.springframework.beans.factory.InitializingBean#afterPropertiesSet()}
+	 * or a custom init-method. Invoked after {@link ResourceLoaderAware#setResourceLoader},
+	 * {@link ApplicationEventPublisherAware#setApplicationEventPublisher} and
+	 * {@link MessageSourceAware}, if applicable.
+	 * @param applicationContext the ApplicationContext object to be used by this object
+	 * @throws ApplicationContextException in case of context initialization errors
+	 * @throws BeansException if thrown by application context methods
+	 * @see org.springframework.beans.factory.BeanInitializationException
+	 */
+	void setApplicationContext(ApplicationContext applicationContext) throws BeansException;
+
+}
+```
+
+
+
+setApplicationContext()
+
+: lifecycle method' - Bean을 Container가 등록하고 관리하는 중 Container가 관리하는 Object를 bean 에 주입  
+
+=> 이 interface를 구현한 클래스(dispatcherServlet)가 빈으로 등록되면, 어떻게 등록되던 스프링 컨테이너는 해당 인터페이스의 setter 메서드로 applicationContext를 알아서 주입해준거암 
+
+=> 이런 종류의 interface를 구현해놓으면 Spring Container는 이 객체가 등록되는 시점에 setter 메서드로 넣어줘야겠구나! (이 setter 메서드 자체를 Spring Container 가 호출하는 거임! 
+
+(명시적으로 setter 메서드 사용해서 주입 안시켜줘도 됨)
 
 
 
 
 
-* 실행 메서드 분리 : run()
+```java
+package tobyspring.helloboot;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+\
+@RestController
+public class HelloController implements ApplicationContextAware {
+
+  
+    private final HelloService helloService;
+    private ApplicationContext applicationContext ; // 자기 자신이지만 Bean 처럼 등록해서 관리
+    // 생성자를 통해 HelloController가 초기화될 때 final 이면 그 필드도 초기화 되어야하는데
+    // ApplicationContextAware 는 객체가 생성된 후 메서드 호출(setter)을 통해 주입(조립)되기 때문에
+
+
+    public HelloController(HelloService helloService) {  // 주입
+    this.helloService = helloService;
+    }
+    
+    // setter 주입 
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        // 스프링 컨테이너가 초기화 되는 시점에 이거 실행됨
+        System.out.println(applicationContext);
+        this.applicationContext=applicationContext;
+    }
+
+	// 생성자 주입 
+   /*
+   private final ApplicationContext applicationContext
+  
+  	public HelloController(HelloService helloService, ApplicationContext applicationContext) {  // 주입
+        this.helloService = helloService;
+        this.applicationContext=applicationContext;
+
+        System.out.println(applicationContext);
+    }
+*/
+    @GetMapping("/hello")
+   // @ResponseBody
+    // 이거 추가해줘야함 : return 된 String 값을 그대로 응답의 Body에 추가해주는 애노테이션 => @RestController 로 대체
+    public String hello(String name){
+        if(name == null || name.trim().length() == 0)throw new IllegalArgumentException();
+        return helloService.sayHello(name); // 이렇게만 하면 에러! Controller에서 반환하는 String return 값을 스프링은 기본적으로 view 페이지 이름으로 인식
+        // null 이면 예외를 던지고 아니면 값을 그대로 넘김 (null이 아닌경우에만 사용되도록)
+    } // hello
+}
+
+```
+
+
+
+
+
+### 10. Application 과 해당 Application을 실행시켜주는 코드 분리 
+
+* application - visible(웹 마다 다른 어플리케이션 실행부) 
+
+**HelloBootApplication**
+
+```java
+@MySpringBootApplication
+public class HellobootApplication {
+	@Bean
+	public ServletWebServerFactory serverFactory (){
+		return new TomcatServletWebServerFactory(8081);
+	}
+	@Bean
+	public DispatcherServlet dispatcherServlet(){
+		return new DispatcherServlet() ; // 여기선 Spring Container (application Context)를 어떻게 넣어줌?
+	}
+
+	public static void main(String[] args) {
+		// MySpringApplication.run(HellobootApplication.class, args);
+		SpringApplication.run(HellobootApplication.class, args); // refactoring 
+	} // main => 스프링 부트 최종코드 !
+} // HellobootApplication
+
+```
+
+=> 각기 다른 설정정보를 갖고 있는 클래스 
+
+: @Configuration 과 @ComponentScan 을 갖고있는 클래스 
+
+
+
+* application 실행시키는 클래스 - invisible (spring boot가 내부적으로 웹 어플리케이션을 다루는 공통 코드)
+
+**MySpringBootApplication**
+
+* 실행 메서드 분리 : run() 
 
 ```java
 private static void run(Class<?> applicationClass, String... args) {
+    // 설정정보 클래스 (어플리케이션 실행부) 클래스 자체를 전달받음 
+    
 	AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext(){
 			@Override
 			protected void onRefresh() {
@@ -970,11 +1142,29 @@ private static void run(Class<?> applicationClass, String... args) {
 
 
 
-=> 스프링 컨테이너 + 서블릿 컨테이너 자동으로 만들어 스프링 컨테이너로부터 정보ㅡㄹ 넘겨받아 기본적으로 웹을 실행시켜줌 
+*  재사용해야함 
 
-=> 다른 main이 되는 클래스에서도 재사용 가능 
+1. 스프링 컨테이너 + 서블릿 컨테이너 초기화해  
+
+2. 어플리케이션의 설정정보를 스프링 컨테이너로부터 넘겨받아 기본적으로 웹을 실행시켜줌 
+
+=> 다른 main이 되는 클래스에서도 재사용 가능
+
+ :Spring Boot에선 형식에 맞는 각기다른 웹 어플리케이션을 넘겨받으면, 이렇게 동작시켜줌 
 
 
+
+<-> 추가적인 설정정보만 application에 적어주면, 
+
+1. 우선 ComponentScan및 설정정보에 작성된 정보들로 Spring Bean 객체 등록해주고
+
+2. 이 메서드에서 서블릿 컨테이너와 스프링 컨테이너를 생성해 등록된 빈들로 구성해 실행시켜주고
+
+3. 요청을 받아 바인딩해 설정된 매핑 핸들러로 넘겨주고, 
+
+4. 전달받은 응답 바디(Response)에 부가적인 정보를 붙여 클라이언트로 전달 
+
+=> 이걸 스프링 부트가 우리 안보이게 대신해줌 
 
 
 
@@ -1205,6 +1395,8 @@ ex) local 이 아니라 API 를 타고 멀리있는 서버의 객체를 호출�
 
 1. Meta Annotaion 
 
+: 애노테이션 위에 또 다시 애노테이션을 달아주는 것 
+
 ![image-20230811111350171](D:\Programming\github.io\images\2023-07-11-SpringBoot\image-20230811111350171.png)
 
 => @Controller, @Service는 @Component의 기능을 그대로 활용할 수 있음 
@@ -1223,7 +1415,7 @@ Retention 과 Target
 
 
 
-2. 합성 애노테이션 : 하나 이상의 Annotation을 활용해 만든 애노테이션 
+2. 합성 애노테이션 : 둘 이상의 Meta Annotation을 가지는 Meta 애노테이션 
 
  @RestController = @Controller (Meta: @Component) + @ResponseBody 
 
@@ -1241,11 +1433,13 @@ Retention 과 Target
 
 ![image-20230811113452679](D:\Programming\github.io\images\2023-07-11-SpringBoot\image-20230811113452679.png)
 
-*  애플리케이션 빈 : 개발자가 사용하기 위해 명시적으로 구성정보를 제공
+*  애플리케이션 빈 : 개발자의 로직코드들을 담고 있는 객체들 =>  개발자가 사용하기 위해 명시적으로 구성정보를 제공
 
 * 컨테이너 인프라스트럭처 빈 : 스프링 컨테이너 자체와 관련됨 (컨테이너 스스로 동작하기 위해 등록하는 빈들)  ex) 자기자신, 구성정보, Bean 처리자
 
-​			=> 자동으로 등록되어 사용되고 있음 
+​			=> 이런 빈들을 생성해달라고 요청하지 않아도 자동으로 등록되어 사용되고 있음 
+
+​		<-> 구성정보를 작성할 필요 없음 
 
  
 
@@ -1253,15 +1447,17 @@ Retention 과 Target
 
 * 애플리케이션 로직 빈 : 비즈니스 로직을 담고 있는 (우리가 개발하는 부분) 기능을 담당 
 
-  => 사용자 구성정보 ! 이용해 등록  
+  => '사용자 구성정보' ! 이용해 등록  
 
   : ComponentScan 을 이용해 자동으로 자바코드 및 에노테이션으로부터 읽어옴
 
-- 애플리케이션  인프라스트럭처 빈: 로직 동작 위해 만들어져있음 -> 사용하겠다고 구성정보를 작성해줘야 사용됨 
+- 애플리케이션  인프라스트럭처 빈: 로직 동작 위해 만들어져있음(코드가 작성되어있음) -> 사용하겠다고 구성정보를 작성해줘야 사용됨 
 
-  =>  자동 구성정보 ! 이용해 등록 
+  =>  '자동 구성정보' ! 이용해 등록 
 
 ​		: AutoConfiguration (자동구성원리) 매커니즘 통해 등록 됨 ! 
+
+​	<-> 구성정보는 작성해줘야함 ! BUT 그걸 우리가 하는게 아닌 Spring Boot가 대신 작성해줌 (vs 컨테이너 : 작성해줄 필요 없음)
 
 
 
@@ -1281,37 +1477,547 @@ Q. AutoConfiguration  ?
 
 * 애플리케이션 동작시 사용될 수 있는 인프라스트럭처 빈을 클래스로 등록해놓음 
 
-  => Spring 이 Application 실행시키면서 필요하면 생성해서 가져다 씀
+  => Spring Boot가 Application 실행시키면서 필요한 configuration을 생성해서 가져다 씀
 
   =>  Spring Boot에선 유저구성정보에 포함 시키지 않아야함  직접 빈으로 등록하지 않아도 뭔가 알아서 등록되도록 만들어야함 (Component Scan 대상에서 제외해야함)
+  
+  => 첫번째 코드 작업 : Component Scan 대상에서 제외 
 
 
 
 ![image-20230811120749026](D:\Programming\github.io\images\2023-07-11-SpringBoot\image-20230811120749026.png)
 
 1. Component 스캔대상이 있는 패키지 x  (@ComponentScan 이 붙은 클래스와 다른 패키지에 있어야함)
-2. @Import({TomcatWebServerConfig.class,DispatcherServletConfig.class})
+
+   
+
+2. @ComponentScan 대상이 아니더라도 어쨌던 구성정보에 포함해야함 => **Import** @Import({TomcatWebServerConfig.class,DispatcherServletConfig.class})
+
 3. Annotaion 분리  
 
 -- 하드 코딩  --- 
 
+
+
+
+
+#### Import 동적으로
+
 * Import 동적으로 ! 매번 @EnableMyAutoConfiguarion의 Import 구문 코딩을 수정하는게 아닌 자동으로 ! 
 
-* 직접 쓰는게 아닌 설정 파일로 동적으로
+  : 모든 스프링부트 어플리케이션에서 저걸 쓰는게 아니면 직접 쓰는게 아닌 설정 파일로 동적으로 작성되어야함 
 
 ImportSelector  (interface)
 
-: return String[] -> import할 Config 데이터(@Configuration 붙은 클래스들)를 String 으로 반환하면 이 데이터를 컨테이너가 구성정보로 사용
+: return String[] -> import할 Config 데이터(@Configuration 붙은 클래스들)를 String 으로 변환해 반환하면 이 데이터를 컨테이너가 구성정보로 사용
 
 => 어떤 설정파일을 사용할지 코드에 의해 그때그때 결정됨 
 
-* DeferredImportSelector (구현)
+* 한번 확장해서 DeferredImportSelector (구현)
 
-  : @Configuartion 안의 코드가 완료된 후? Import Selector 수행하도록 함
+  : 다른 @Configuartion 붙은 클래스의 구성정보 생성작업이 끝난 후 Import Selector 수행하도록 순서를 좀 바꿈 함
+
+=> 그 읽어오는 클래스 목록은 db에서 읽어올수도, 외부 파일에 적어놓을 수도 있겠지?
 
 
 
-* 파일 읽어서 하게끔
+1. MyAutoConfigImportSelector 로 DeferredImportSelector  inferface 구현 
 
-1. @MyAutoConfiguration 생성
-2. MyAutoConfigImportSelector 
+```java
+  @Override
+    public String[] selectImports(AnnotationMetadata importingClassMetadata) {
+        
+        return new String[]{
+                // 사용할 configuration 클래스를 Stiring 으로 반환
+                // => Spring 이 이걸 읽어 빈 생성 + 사용
+                // 소스코드로 직접
+                "tobyspring.config.autoConfig.DispatcherServletConfig",
+                "tobyspring.config.autoConfig.TomcatWebServerConfig"
+        };
+```
+
+이 반환된 String 배열의 클래스 이름으로 빈 객체 생성 
+
+
+
+2. @EnableMyAutoConfig 에 @Import(MyAutoConfigImportSelector.class) 
+
+생성된 빈 객체들을 클래스 MyAutoConfigImportSelector 통째로 Import  
+
+<-> 이 클래스에 목록 작성해주어 빈 객체 생성하고, 이 클래스를 Import 하는 방식으로 바꿔 이 클래스만 빈 객체 목록 수정하면 자동으로 실제 application에 import 
+
+
+
+#### 파일 읽어서 하게끔
+
+1. 애노테이션 생성 @MyAutoConfiguration 생성
+
+```java
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Configuration
+public @interface MyAutoConfiguration {
+}
+```
+
+
+
+3. 이 애노테이션 이름으로 된 설정파일 생성 => 자동구성에 사용할 클래스 목록 집어넣을 거임 
+
+
+
+4. MyAutoConfigImportSelector - selectImports
+
+```java
+package config;
+
+import org.springframework.boot.context.annotation.ImportCandidates;
+import org.springframework.context.annotation.DeferredImportSelector;
+import org.springframework.core.type.AnnotationMetadata;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.StreamSupport;
+
+public class MyAutoConfigImportSelector implements DeferredImportSelector {
+
+    private final ClassLoader classloader;
+
+    public MyAutoConfigImportSelector(ClassLoader classloader){
+        this.classloader=classloader;  // 이렇게 하면 스프링이 class load할때 사용하는 빈 넣어줌
+    }
+    @Override
+    public String[] selectImports(AnnotationMetadata importingClassMetadata) {
+        /*eturn new String[]{
+                // 사용할 configuration 클래스를 Stiring 으로 반환
+                // => Spring 이 이걸 읽어 빈 생성 + 사용
+                // 소스코드로 직접
+                "config.autoConfig.DispatcherServletConfig",
+                "config.autoConfig.TomcatWebServerConfig"
+        }; */
+
+        List<String> autoConfigs = new ArrayList<>();
+
+        // 외부 설정파일로 읽기: txt(구성정보 후보들)로 빼서 자바의 파일 읽기 기능
+        // 애노테이션 클래스 정보
+        /* classLoader : 애플리케이션에서 resource(파일 등)을 읽어올 땐 classLoader 사용
+                    => 스프링이 빈을 생성할 떄 사용할 구성정보 파일을 읽어올때 사용하도록 같이 넣어줘야함
+                    => 자동구성정보로 쓸 것이기 때문에 규격화된 방식으로 일어와야함
+                    => 작성되어있는 클래스파일을 모두 사용하는게 아니라 후보들을 넣어놓고 스마트하게 고름 ~
+         */
+        ImportCandidates.load(MyAutoConfiguration.class,classloader).forEach(autoConfigs::add);
+        // META-INF/spring/full-qualified-annotation-name.imports on the classpath
+
+     //    return StreamSupport.stream(candidates.spliterator(),false).toArray(String[]::new) ;
+        // return autoConfigs.toArray(String[]::new);
+        // Arrays.copyOf(autoConfigs.toArray(), autoConfigs.size(), String[].class) ;
+        return autoConfigs.toArray(new String[0]); // 빈 String array를 넣어줌 => 컬렉션의 사이즈보다 작은 array가 반환되면 새로운 배열 생성
+
+
+    }
+}
+
+```
+
+
+
+5. 그렇다면, 이 load는 어디 파일에서 읽어오는가 ? 
+
+ =>  META-INF/spring/full-qualified-annotation-name.imports on the classpath
+
+파일생성해서, 풀네임의 애노테이션 이름으로 파일 생성 시 해당 파일안에 있는 클래스 이름을 읽어와 import한다 
+
+```bash
+tobyspring.config.autoConfig.DispatcherServletConfig
+tobyspring.config.autoConfig.TomcatWebServerConfig
+```
+
+
+
+
+
+
+
+
+
+6. 실제 자동구성 클래스 들에도 @MyAutoConfiguration 로 바꿔줌 
+
+설정파일 이름을 애노테이션을 하나 만들고, 거기에 imports 붙여줘 이름 만듬  
+
+=> 명확히 함 :  @MyAutoConfiguration 파일에 적힌 목록에 의해 자동 구성되는 클래스 들이다~ 라는 의미를 명확히 함 
+
+
+
+
+
+
+
+7. @Configuration(proxyBeanMethods = false) 
+
+=> Proxy로 만들어지지 않고 생성됨 
+
+```java
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Configuration(proxyBeanMethods = false) // proxyBeanMethods = false로 바꾼 configuration이 적용된다
+public @interface MyAutoConfiguration {
+    // 이 애노테이션 이름으로 된 설정파일을 만들어 거기에 config 으로 쓸 클래스 목록을 작성해줄거임
+}
+
+```
+
+
+
+* proxyBeanmethods 실습 
+
+
+
+Test Code 
+
+*  학습 테스트  : ConfigurationTest우리가 만든 기능을 테스트 하는게 아니라 남이 만든 코드로 간단한 샘플을 만들어 사용법을 이해하고 공부하기 위한 목적으로 좋음 
+
+
+
+
+
+
+
+### 조건부 자동구성
+
+이전까지 자동구성 : 컨스트록춰 빈 기술 종류별로 클래스를 만들고, 외부 파일 목록에서 읽어와서 사용할 수 있도록 
+
+
+
+Spring Boot에 들어있는 Configuration 종류에는 어떤게 있을까? 
+
+```bash
+org.springframework.boot.autoconfigure.admin.SpringApplicationAdminJmxAutoConfiguration
+org.springframework.boot.autoconfigure.aop.AopAutoConfiguration
+org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
+org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration
+									:
+									:
+org.springframework.boot.autoconfigure.websocket.reactive.WebSocketReactiveAutoConfiguration
+org.springframework.boot.autoconfigure.websocket.servlet.WebSocketServletAutoConfiguration
+org.springframework.boot.autoconfigure.websocket.servlet.WebSocketMessagingAutoConfiguration
+org.springframework.boot.autoconfigure.webservices.WebServicesAutoConfiguration
+org.springframework.boot.autoconfigure.webservices.client.WebServiceTemplateAutoConfiguration
+
+=> 144개 
+```
+
+=> SpringBoot (Opinionated) : 선택할 수 있는거 제외하고, 스프링 부트를 사용하려면 자동적으로 적용하려는 애들을 자동구성정보 목록으로 작성 
+
+
+
+지금까진 프로젝트를 실행하면 Configuration 클래스들 + 그 안에 빈들 까지 몇백개의 빈을 다 생성하는 방식 (실제론 몇가지 안되는데... 말도 안됨)
+
+=> 각각의 Configuration 클래스 + 빈 팩토리 메서드들 => 여기에 각각 조건을 걸어 이걸 적용할까? 말까?를 결정해 포함여부 결정 
+
+: 즉 , 일반 파일에 적힌 클래스 목록들은 실제 다 생성되는 빈 목록이 아닌 후보들, 그렇다면 어떤 조건으로 이중 사용할 애들을 결정? 
+
+=> 이게 어떻게 일어남? ? 
+
+ㄴ 실습 : 어떤 조건을 걸어 Webserver로 Tomcat을 쓸지, Jetty를 쓸지 선택해보자 
+
+
+
+* Tomcat Library : spring initializer가 포함시킴 
+
+
+
+```bash
+( build.gradle ) 
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+```
+
+spring-boot-starter-web 이 라이브러리 하나 작동시키는데 어떻게 모든게 동작할까? 
+
+=> 이 라이브러리는 굉장히 많은 라이브러리 모듈을 포함하기 때문 (그래들의 트리구조 라이브러리 참고)
+
+=> 스프링이 스프링 버전에 맞춰 라이브러리 버전도 다 맞춰서 넣어줌 
+
+ (jsp에선 일일히 다운받아 추가시켜줌........+ 맨땅에서 하나하나 조사해서 호환되는 라이브러리들의 버전까지 맞춰줌 ) 
+
+
+
+spring-boot-starter-tomcat 
+
+=> tomcat은 스프링 프로젝트 만들면 자동으로 추가해줌 
+
+But ! Jetty는 추가해줘야함 ! 
+
+1. 의존 추가 
+
+```bash
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-jetty'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+```
+
+
+
+2. Jetty 와 관련된 ServierConfig 추가 : JettyWebServerConfig
+
+=> 어떤 조건이 만족되면 Jetty를 , 어떤 조건에선 Tomcat을 자동으로 선택하도록 만드는게 목표 ! 
+
+```java
+@MyAutoConfiguration
+public class JettyWebServerConfig {
+    @Bean("jettyWebServerFactory")
+    public ServletWebServerFactory serverFactory (){ // 얜 수정 안해도 됨 (interface형 참조변수의 이유)
+        return new JettyServletWebServerFactory(8081);
+    }
+}
+```
+
+
+
+* 원래 spring framework에선 xml에서 생성된 bean이름 지정해줬어야함 
+
+  => boot에선 자동으로 factory 메서드 이름 따라감 
+
+  => 수동 지정 가능   : @Bean("jettyWebServerFactory") 
+
+  (tomcat도 같이 생성되면 같은 factory메서드다보니 이름 충돌되므로 )
+
+
+
+=> 이 상태로 서버 띄우면 에러 
+
+```bash
+Unable to start ServletWebServerApplicationContext due to multiple ServletWebServerFactory beans : tomcatWebServerFactory,jettyWebServerFactory
+```
+
+
+
+ㄴ 어떻게 둘 중 하나를 선택해서 이 애플리케이션의 서블릿 컨테이너로 사용되도록 할 수 있을까? 
+
+: @Conditional 
+
+
+
+```java
+
+@MyAutoConfiguration
+@Conditional(JettyWebServerConfig.JettyCondition.class) 
+public class JettyWebServerConfig {
+    @Bean("jettyWebServerFactory")
+    public ServletWebServerFactory serverFactory (){ // 얜 수정 안해도 됨 (interface형 참조변수의 이유)
+        return new JettyServletWebServerFactory(8081);
+    }
+
+    static class JettyCondition implements Condition {
+        @Override
+        public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+            // ConditionContext : 현재 스프링 컨테이너 환경에 대한 정보를 얻을 수 잇는 클래스
+            // + AnnotatedTypeMetadata : Meta 애노테이션으로 사용하고 있는 애노테이션들에 대한 metadata 반환
+            // return false; // bean으로 등록할건지, 무시할건지 boolean 으로 반환
+            return true;
+        } // matches
+    } // JettyCondition
+} // JettyWebServerConfig
+
+
+```
+
+
+
+
+
+
+
+* TroubleShooting : Jetty 쪽을 true로 지정해줬음에도 ServerFactory로 찾지 못하는 문제 
+* 해결 
+
+1. 톰캣쪽을 true로 바꿔 실행 => 정상적으로 동작 : 코드는 틀리지 않았으나 Jetty 빈 생성에 문제가 있음을 발견 
+2. 의존 목록 확인 => gradle 목록에 추가했음에도 의존목록에 없음 (오타 확인했는데 틀리지 않음)
+3. 원인 : Intellij 오류 - 의존 목록 반영 x 
+4. 구글링 keyword : gradle jetty 의존 추가 안됨
+5. 해결 : file - invalidates caches - 프로젝트 rebuild (jdk 재가동) => 의존 잘 반영 ~ 
+
+참고 : [gradle 에 추가한 의존성을 IntelliJ 에서 못 찾을 때 (lesstif.com)](https://www.lesstif.com/spring/gradle-intellij-113345573.html)
+
+=> Load 다시해야함 ?? 
+
+
+
+* class level 말고 method 레벨 (@bean) 에도 @conditional 할 수 있음 
+
+=> 빈 메서드에 붙은 conditional 조건이 true인 경우에만 해당 빈 등록 / 아님 무시 (클래스는 전체 빈 메서드의 생성 여부를 판단)
+
+class level true -> method level true 여야 빈으로 등록됨 
+
+
+
+
+
+* testcode 작성 
+  * troubleShooting : static keyword를 잘 붙이자...
+  * MetaAnnotation : trueConditional 생성 
+
+
+
+
+
+#### 커스톰 @Conditional
+
+* 실제로 자동구성정보 true, fale 를 저런식으로 일일히 지정하지 않음 
+
+  => Spring boot : 해당 라이브러리의 존재 유무를 보고, 그 라이브러리가 있으면 조건구성의 true 값을 주고 그 서블릿을 띄우고, 없으면 안띄움 (즉 , 조건 형식 : 라이브러리 존재 유무)
+
+  => 라이브러리 존재 유무 : 특정 클래스 존재유뮤 검사 (Tomcat -> Tomcat.class , Jetty -> Server.class )  
+
+  => 이 클래스 검사 어떻게 ? Spring 이 제공하는 Utility class 활용 : ClassUtils
+
+  ```java
+     static class TomcatCondition implements Condition {
+  
+          @Override
+          public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+             //  return false;
+              return ClassUtils.isPresent("org.apache.catalina.startup.Tomcat", context.getClassLoader()) ;
+          } // matches
+      } // TomcatCondition
+  ```
+
+  
+
+
+
+* Conditional에 직접 Condition 클래스를 추가하는 것이 아닌 커스텀 메타 애노테이션을 추가해서 그 안에 조건에 해당하는 값을 넣어주고 그걸 Condition에서 읽어와 사용 (Test Code에서 사용한거랑 같음)
+
+*//* *클래스 이름을 읽어와서 해당 클래스가 존재하는지 유무를* *boolean* *값으로 반환하면 그* *boolean* *값으로 해당 클래스 빈 객체 생성 여부 결정 
+
+
+
+#### 자동 구성정보 대체하기
+
+* 포함되는 자동 구성 정보 (Object)를 무시하고 내가 만든 custom  configuration을 사용하게 해줘 (스프링 부트 개발시 이런경우 반드시 발생)
+
+=> 사용자 구성정보에다가 자동 구성정보와 등록되는것과 같은 인프라 빈을 직접 작성하면, 그 전의 후보였던 인프라 빈들 대신 내거가 사용되도록 만들어줄 수 있음 (overide와 비슷)
+
+
+
+: @Conditional & Condition.class 이용 
+
+
+
+1. ComponentScan 대상 (유저빈)으로 톰캣 추가 
+
+```java
+package tobyspring.helloboot;
+
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import tobyspring.config.autoConfig.TomcatWebServerConfig;
+
+@Configuration(proxyBeanMethods = false) // 얜 Component Scan에 의해 추가 
+public class WebServerConfiguration {
+
+    @Bean
+    ServletWebServerFactory custormerWebServerFactory(){
+        TomcatServletWebServerFactory serverFactory = new TomcatServletWebServerFactory() ;
+        serverFactory.setPort(9090);
+        return serverFactory ;
+    }
+}
+
+```
+
+
+
+=> 에러 : 자동구성에서 톰캣있는데 여기서 또 못띄웡,,! 
+
+=> 따로 다시 지정해야함 
+
+
+
+
+
+2. method level Conditional 
+
+
+
+=> 클래스 레벨은 그대로 둠 <->  *일단*  *TomcatWebServerConfig* 얜 생성이됨 
+
+=> TomcatServlet에 @ConditionaOnMissingBean 을 넣어서 만약 같은 유저정보 빈이 있으면 유저정보빈으로 사용 
+
+ㄴ 이걸 위해서 DeferredImportSelector 를 implement 
+
+ 
+
+* 이렇게 잘못 유저정보 빈 잘못 집어넣으면 자동구성정보 대체하면서 앱 실행 문제 발생 ! 
+
+  => 그럼 어케 ? 이걸 쓰면, Spring Boot 의 내부적인 인프라 빈 어떤걸 대체하고 기능이 어떻게 달라지는지 잘 확인해야함 
+
+
+
+
+
+
+
+
+
+#### Conditional 확장 애노테이션
+
+1. Spring Boot 가 제공하는 자동구성정보를 알고있어야하는 경우 有 : 사용 or 대체 
+2. 제 3의 기술을 사용하기 위해 자동구성정보로 등록해서 사용하려면 알아야함 ! 
+
+
+
+@Profile 
+
+Class Conditions - @ConditionakOnClass ** , @ConditionalOnMissingClass  For 조건부 자동 구성  
+
+ => 주의 : 메서드에도 사용되지만 그럼 불필요하게 클래스 빈이 생성되므로 클래스 먼저 고려해야함 
+
+Bean Conditions - @ConditionalOnBean , @ConditionalOnMissigBean ** For 자동구성정보 대체 
+
+=> 주의 : 처리 순서 중요 (유저 구성정보먼저 진행되므로 ㄱㅊ But 자동구성 여러개가 여러개고 , factory Method가 여러개인경우 이걸 걸때 순서를 고려해야함 -> 우선 순위 정해서 작성해야 뒤에 검사 안했는데...! 문제 방지 )
+
+Property Conditions - @ConditionalOnProperty => 환경 프로퍼지 정보 중 지정된 프로퍼티 값이 있는지 
+
+ex) 라이브러리를 다 로드해도 됨 근데 난 property 파일에 서블릿 톰캣 쓸지, 재키 쓸지 결정할래 => 이런 경우 이거 사용 
+
+
+
+Resource Conditions - @ConditionalOnResource -> 지정된 리소스(파일)의 존재를 확인 
+
+
+
+Web Application Conditions  - @ConditionalOnWebApplication, @ConditionalOnNotWebApplication 
+
+=> 웹 애플리케이션 여부를 확인. 모든 스프링 부트 프로젝트가 웹 기술을 사용해야하는 것은 아님 
+
+
+
+SpEL Expression Conditions 
+
+@ConditionalOnExpression 은 동적으로 설정정보를 문자열 형태로 만들어내는 스프링 표현식(언어)의 처리결과를 기준으로 판단(매우 상세한 조건 설정 가능)
+
+
+
+
+
+
+
+---
+
+
+
+
+
+다음시간 : 빈 오브젝트를 아예 다른걸 등록하는게 아니라 자동등록 빈의 내용을 세부적으로 수정 
+
+ex) jdbc 비밀번호는 어디 ? 
