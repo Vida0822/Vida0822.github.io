@@ -1,6 +1,6 @@
 ---
 published: true
-title: [알고리즘] 이진탐색 - Hash + 이분탐색을 이용한 Solution
+title: "[알고리즘] 이진탐색 - Hash + 이분탐색을 이용한 Solution"
 categories: 알고리즘 
 tag: [algorithm, 프로그래머스, BinarySearch, Hash ] 
 toc: true
