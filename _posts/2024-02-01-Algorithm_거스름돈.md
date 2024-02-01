@@ -1,10 +1,11 @@
 ---
 published: true
-title: "그리디-알고리즘" 
+title: "그리디-거스름돈" 
 categories: 알고리즘 
 tag: [algorithm, 프로그래머스, greedy] 
 toc: true
 author_profile: false 
+
 
 ---
 
@@ -14,7 +15,7 @@ author_profile: false
 
 ##### 문제 
 
-* 책, '이것이 취업을 위한 코딩 테스트다' / ch3 Greedy / 예제 3-1 (p.87)
+- 책, '이것이 취업을 위한 코딩 테스트다' / ch3 Greedy / 예제 3-1 (p.87)
 
 당신은 음식점의 계산을 도와주는 점원이다. 카운터에는 거스름돈으로 사용할 500원, 100원, 50원, 10원 동전이 무한히 존재한다고 가정한다. 손님에게 거슬러 줘야 할 돈이 N원일 때 거슬러 줘야 할 동전의 최소 개수를 구하라. 
 
@@ -34,7 +35,7 @@ author_profile: false
 
 Greedy 알고리즘 
 
-* Greedy (탐욕법)
+- Greedy (탐욕법)
 
   : 현재 상황(고려하는 turn)에서 당장 좋은 것만 고르는 방법 (이후는 고려하지 )
 
@@ -58,21 +59,21 @@ Greedy 알고리즘
 
 ```java
 public class 거스름돈문제 {
-	
-	public static void main(String[] args) {	
-		int n = 1260 ; // 손님에게 건네줘야할 거스름돈 
-		int cnt = 0 ; // 거스름돈 구성 동전 개수 
-		int[] coinTypes = {50, 10, 500, 100} ; 
+    
+    public static void main(String[] args) {    
+        int n = 1260 ; // 손님에게 건네줘야할 거스름돈 
+        int cnt = 0 ; // 거스름돈 구성 동전 개수 
+        int[] coinTypes = {50, 10, 500, 100} ; 
+        
+        Arrays.sort(coinTypes) ; // 코인 종류를 큰 순서대로 정렬 
         
-        Arrays.sort(coinTypes) ; // 코인 종류를 큰 순서대로 정렬 
-		
-		for(int coin : coinTypes) { // 코인 종류를 큰 순서대로 하나씩 고려하면서 
-			cnt += n/coin ; // 해당 코인으로 거슬러 줄 수 있는 동전 갯수 누적 
-			n %= coin ; // 나머지를 다음 for문으로 넘겨서 다음 동전 갯수 구하기   
-		} // for 
-		System.out.println(cnt);
-	} // main
+        for(int coin : coinTypes) { // 코인 종류를 큰 순서대로 하나씩 고려하면서 
+            cnt += n/coin ; // 해당 코인으로 거슬러 줄 수 있는 동전 갯수 누적 
+            n %= coin ; // 나머지를 다음 for문으로 넘겨서 다음 동전 갯수 구하기   
+        } // for 
+        System.out.println(cnt);
+    } // main
 } // class 
-
+​
 ```
 
