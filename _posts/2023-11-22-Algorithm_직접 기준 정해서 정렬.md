@@ -1,6 +1,6 @@
 ---
 published: true
-title: "[알고리즘] 정렬 - 직접 기준 정렬하기" 
+title: "Sort-직접 기준 정렬하기" 
 categories: 알고리즘 
 tag: [algorithm, Programmers, 정렬, 직접기준정렬, compare ] 
 toc: true

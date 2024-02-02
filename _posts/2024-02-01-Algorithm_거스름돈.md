@@ -1,6 +1,6 @@
 ---
 published: true
-title: "그리디-거스름돈" 
+title: "Greedy-거스름돈" 
 categories: 알고리즘 
 tag: [algorithm, 프로그래머스, greedy] 
 toc: true

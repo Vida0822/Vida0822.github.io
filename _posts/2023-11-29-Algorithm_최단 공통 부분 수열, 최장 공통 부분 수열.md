@@ -1,6 +1,6 @@
 ---
 published: true
-title: "[알고리즘] dp - 최단공통부분수열, 최장공통부분수열"
+title: "DP-최단공통부분수열, 최장공통부분수열"
 categories: 알고리즘 
 tag: [algorithm, CodeTree, dp, 점화식 , 최단공통부분수열, 최장공통부분수열 ] 
 toc: true

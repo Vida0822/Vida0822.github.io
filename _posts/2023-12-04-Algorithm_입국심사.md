@@ -1,6 +1,6 @@
 ---
 published: true
-title: "[알고리즘] 이분 탐색 - 탐색의 범위와 정답의 정의 지정 중요" 
+title: "BinarySearch-입국 심사" 
 categories: 알고리즘 
 tag: [algorithm, 프로그래머스, BinarySearch ] 
 toc: true

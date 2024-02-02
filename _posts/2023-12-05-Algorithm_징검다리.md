@@ -1,6 +1,6 @@
 ---
 published: true
-title: "[알고리즘] 이분 탐색 - 탐색의 범위와 정답의 정의 지정 중요" 
+title: "BinarySearch-징검 다리" 
 categories: 알고리즘 
 tag: [algorithm, 프로그래머스, BinarySearch ] 
 toc: true
@@ -9,7 +9,7 @@ author_profile: false
 
 
 
-### 10번. 이분 탐색으로 거리의 최댓값 구하기 
+### 이분 탐색으로 거리의 최댓값 구하기 
 
 ---
 
