@@ -1,3 +1,15 @@
+---
+published: true
+title:  "데이터 엔지니어링 직무탐색"
+categories: Career
+tag: [BigData Engineer] 
+toc: true
+author_profile: false 
+
+---
+
+
+
 # 현직자에게 배우는 IT(데이터 엔지니어링) 부문 취업과 직무 이야기
 
 \#직무 특강 #RSQUARE #BigData Engineer

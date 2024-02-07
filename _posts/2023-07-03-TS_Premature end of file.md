@@ -1,7 +1,7 @@
 ---
 published: true
 title:  "에러 Premature end of file  해결 "
-categories: troubleshooting 
+categories: Troubleshooting 
 tag: [java, Spring] 
 toc: true
 author_profile: false 
@@ -12,10 +12,6 @@ author_profile: false
 문제 상황
 
 : Spring Project 진행 중 WEB-INF 폴더 밖에 있는 jsp 파일을 실행해도 404 에러로 페이지가 실행되지 않음
-
-
-
-![image-20230703220251631](D:\Programming\github.io\images\2023-07-03-Premature end of file\image-20230703220251631.png)
 
 
 
