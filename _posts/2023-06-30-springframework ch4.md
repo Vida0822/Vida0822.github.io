@@ -1,7 +1,7 @@
 ---
 published: true
 title: "Spring Legacy 4) 응용:게시판" 
-categories: SPRING
+categories: Spring
 tag: [SPRING,legacy, board] 
 toc: true
 author_profile: false 

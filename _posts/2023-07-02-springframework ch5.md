@@ -1,7 +1,7 @@
 ---
 published: true
 title: "Spring Legacy 5) Security" 
-categories: SPRING
+categories: Spring
 tag: [SPRING,legacy, security] 
 toc: true
 author_profile: false 
