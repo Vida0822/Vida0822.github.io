@@ -3,7 +3,6 @@ published: true
 title: "기지국 설치" 
 categories: 알고리즘 
 tag: [algorithm, 프로그래머스, greedy] 
-toc: true
 author_profile: false 
 
 ---
