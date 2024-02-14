@@ -1,6 +1,6 @@
 ---
 published: true
-title: "해싱-호텔 방 배정" 
+title: "Hash-호텔 방 배정" 
 categories: Algorithm 
 tag: [algorithm, Programmers, Two-pointer] 
 toc: true
