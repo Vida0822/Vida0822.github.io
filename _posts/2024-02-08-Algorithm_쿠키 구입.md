@@ -41,13 +41,7 @@ public class Solution{
 }
 ```
 
-- 배운 것
 
-  - 
-
-  [Untitled](http://44.com)
-
-  
 
 <details>
 <summary><b> 배운 것 </b></summary>
