@@ -1,8 +1,9 @@
 ---
 published: true
-title: "기지국 설치" 
+title: "순차탐색-기지국 설치" 
 categories: Algorithm 
 tag: [algorithm, 프로그래머스, greedy] 
+toc: true
 author_profile: false 
 
 ---
@@ -27,15 +28,17 @@ author_profile: false
 
 ##### Step 2. 선택한 알고리즘 
 
-구현 
+순차탐색
 
 
 
 ##### Step 3. 선택 이유 
 
-별다른 알고리즘을 필요로 하지 않고 반복문을 돌며 기지국 전파 X 구역의 크기를 구하고 그 크기를 1+2w로 나눈 몫 만큼 기지국 갯수를 ++ 해준다 
+반복문으로 배열을 하나씩 돌며 기지국 전파 X 구역의 크기를 구하고 그 크기를 1+2w로 나눈 몫 만큼 기지국 갯수를 ++ 해준다 
 
+기지국을 설치하면 검사할 위치를 해당 범위 뒤로 재설정 해줌으로써 효율성을 높인다. 
 
+   
 
 ##### Step 4. 구현 (코드)
 
