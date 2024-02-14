@@ -125,14 +125,14 @@ class Solution {
 <summary><b> 배운 것 </b></summary>
 <div markdown="1">
 
-1. 슬라이딩 윈도우 알고리즘
+1. **슬라이딩 윈도우 알고리즘**
 
 - Queue + 투 포인터 이용
 - 고정 사이즈의 윈도우가 이동하면서 윈도우 내에 있는 데이터를 이용해 문제를 풀이하는 알고리즘
 - **교집합의 정보를 공유하고, 차이가 나는 양쪽 끝 원소, 그에 따른 통계값(반환값)만 갱신**
 - 투포인터를 이용하지만, **항상 구간의 넓이가 고정되어 있다는 차이점 존재**
 
-2. Deque (interface)
+2. **Deque (interface)**
 
 - 구현 클래스 : ArrayDeque, LinkedBlockingDeque, ConcurrentLinkedDeque, LinkedList
 - addFirst(), offerFirst() / removeFirst(), pollFirst() / peekFirst()
@@ -141,5 +141,3 @@ class Solution {
 
 </div>
 </details> 
-    
-</br>
