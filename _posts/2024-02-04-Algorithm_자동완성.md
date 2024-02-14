@@ -2,7 +2,7 @@
 published: true
 title: "문자열-자동완성" 
 categories: Algorithm 
-tag: [algorithm, 이것이 코딩테스트다, greedy] 
+tag: [algorithm, Programmers, Trie] 
 toc: true
 author_profile: false 
 
