@@ -1,17 +1,13 @@
 ---
 published: true
 title: "BinarySearch-징검 다리" 
-categories: 알고리즘 
+categories: Algorithm 
 tag: [algorithm, 프로그래머스, BinarySearch ] 
 toc: true
 author_profile: false 
 ---
 
 
-
-### 이분 탐색으로 거리의 최댓값 구하기 
-
----
 
 ##### 문제 : 징검 다리 (LEVEL 4)
 
@@ -119,7 +115,7 @@ class Solution {
 
 ##### 해설 풀이 ✔
 
-##### logic : 정답이 포함된 시간의 범위는 0 ~ 가장 오래 걸린 심사 시간
+**logic : 정답이 포함된 시간의 범위는 0 ~ 가장 오래 걸린 심사 시간**
 
 모든 사람이 심사를 받는데 걸리는 시간의 최솟값
 

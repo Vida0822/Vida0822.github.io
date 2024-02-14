@@ -1,7 +1,7 @@
 ---
 published: true
 title: "Greedy-숫자카드게임" 
-categories: 알고리즘 
+categories: Algorithm 
 tag: [algorithm, 프로그래머스, greedy] 
 toc: true
 author_profile: false 
@@ -11,8 +11,6 @@ author_profile: false
 
 
 
-## 숫자카드게임
-
 ##### 문제 
 
 - 책, '이것이 취업을 위한 코딩 테스트다' / ch3 Greedy / 예제 3-3 (p.96)
@@ -21,13 +19,13 @@ author_profile: false
 
 
 
-### Step 1. 문제 접근 
+##### Step 1. 문제 접근 
 
 각 행을 검사할때마다 가장 작은 수를 뽑고, 해당 값들을 비교해서 가장 큰 값을 도출한다 
 
 
 
-### Step 2. 선택한 알고리즘 
+##### Step 2. 선택한 알고리즘 
 
 Greedy 알고리즘 
 
@@ -37,7 +35,7 @@ Greedy 알고리즘
 
 
 
-### Step 3. 선택 이유 
+##### Step 3. 선택 이유 
 
 매 행을 검사할 때마다 다음 행의 최솟값을 생각하지 않고 지금 당장의 최솟값을 뽑고 최댓값으로 갱신한다. 
 
@@ -47,7 +45,7 @@ Greedy 알고리즘
 
 
 
-### Step 4. 구현 (코드)
+##### Step 4. 구현 (코드)
 
 ```java
 package greedy;

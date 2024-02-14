@@ -1,17 +1,13 @@
 ---
 published: true
-title: "BinarySearch-쿼리를 자바코드로 구현하기"
-categories: 알고리즘 
+title: "BinarySearch-순위 검색"
+categories: Algorithm 
 tag: [algorithm, 프로그래머스, BinarySearch, Hash ] 
 toc: true
 author_profile: false 
 ---
 
 
-
-### 6번. 쿼리를 자바코드로 구현하기 
-
----
 
 ##### 문제 : 순위 검색 (LEVEL 2)
 
@@ -142,7 +138,7 @@ public class 순위탐색 {
 
 
 
-##### logic
+**logic**
 
 * Query 의 효율성 : 여러번 일어나는 검색에 추가적인 연산이 필요하면 안됨 
 

@@ -1,21 +1,11 @@
 ---
 published: true
-title: "BinarySearch, Hash - 중복된 문자 제거" 
-categories: 알고리즘 
+title: "Hash - 중복된 문자 제거" 
+categories: Algorithm 
 tag: [algorithm, 프로그래머스, BinarySearch, Hash ] 
 toc: true
 author_profile: false 
 ---
-
-
-
-### 8번. 중복된 문자 제거
-
----
-
-##### 문제 : 중복된 문자 제거 (LEVEL 1)
-
-
 
 ##### 내 풀이 : Hashing 이용 
 

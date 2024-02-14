@@ -1,7 +1,7 @@
 ---
 published: true
 title: "Greedy-왕실의 나이트" 
-categories: 알고리즘 
+categories: Algorithm 
 tag: [algorithm, 이것이 코딩테스트다, greedy] 
 toc: true
 author_profile: false 
@@ -9,13 +9,9 @@ author_profile: false
 
 ---
 
-
-
-## 왕실의 나이트
-
-책, '이것이 취업을 위한 코딩 테스트다' / ch4 구현 / 예제 4-3 (p.115)
-
 ##### 문제 
+
+* 책, '이것이 취업을 위한 코딩 테스트다' / ch4 구현 / 예제 4-3 (p.115)
 
 나이트는 다음과 같은 두가지 경우로 이동할 수 있다. 
 
@@ -26,27 +22,25 @@ author_profile: false
 
 
 
-### Step 1. 문제 접근 
+##### Step 1. 문제 접근 
 
 격자, 좌표 안에서 이동하는 Simultaion문제로, 갈 수 있는 이동 좌표를 체크해보면서 범위 밖으로 벗어나는지 확인하는 문제다. 
 
 
 
-### Step 2. 선택한 알고리즘 
+##### Step 2. 선택한 알고리즘 
 
 완전 탐색 - dx, dy 배열을 구현하여 이동할 수 있는 모든 경우의 수를 체크한다.   
 
 
 
-### Step 3. 선택 이유 
+##### Step 3. 선택 이유 
 
 이동 할 수 있는 최대 경우의 수가 한정되어있기 그 경우의 수를 모두 배열로 구현한 후, 모두 테스트 해보며 이동 가능 여부를 체크한다. 
 
 
 
-
-
-### Step 4. 구현 (코드)
+##### Step 4. 구현 (코드)
 
 ```java
 package implementation;

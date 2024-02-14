@@ -1,7 +1,7 @@
 ---
 published: true
 title: "코딩 테스트 대비 Note "
-categories: 알고리즘 
+categories: Algorithm 
 tag: [algorithm, CodeTree, dp, 점화식 ] 
 toc: true
 author_profile: false 

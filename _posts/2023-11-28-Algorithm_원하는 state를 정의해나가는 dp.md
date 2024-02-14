@@ -1,7 +1,7 @@
 ---
 published: true
-title: "DP-원하는 State를 정의하여 하나씩 나아가기"
-categories: 알고리즘 
+title: "DP-Choose One Of Two"
+categories: Algorithm 
 tag: [algorithm, CodeTree, dp, 점화식 ] 
 toc: true
 author_profile: false 
@@ -9,10 +9,6 @@ author_profile: false
 ---
 
 
-
-### 5번. DP - 원하는 State를 정의하여 하나씩 나아가는 dp
-
----
 
 ##### 문제 : Choose One Of Two
 

@@ -1,7 +1,7 @@
 ---
 published: true
 title: "Sort-직접 기준 정렬하기" 
-categories: 알고리즘 
+categories: Algorithm 
 tag: [algorithm, Programmers, 정렬, 직접기준정렬, compare ] 
 toc: true
 author_profile: false 
@@ -24,7 +24,7 @@ author_profile: false
 
 
 
-#### 세운 로직 
+##### 세운 로직 
 
 * 숫자 구성요소 뽑기 
 * 문자 조합 만들기 (순열 만들기)

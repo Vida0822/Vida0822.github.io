@@ -1,7 +1,7 @@
 ---
 published: true
 title: "DP-최단공통부분수열, 최장공통부분수열"
-categories: 알고리즘 
+categories: Algorithm 
 tag: [algorithm, CodeTree, dp, 점화식 , 최단공통부분수열, 최장공통부분수열 ] 
 toc: true
 author_profile: false 
@@ -9,11 +9,7 @@ author_profile: false
 
 
 
-### 5번. DP - 최단/ 최장 공통 부분 수열 
-
----
-
-#### 1) 최단 공통 부분 수열
+### 1. 최단 공통 부분 수열
 
 : 두 문자열을 모두 부분 문자열로 하는 문자열 중 길이가 가장 짧은 문자열  
 
@@ -155,9 +151,7 @@ public class SuperSubSequence {
 
 
 
-
-
-#### 2) 최장 공통 부분 수열 
+### 2. 최장 공통 부분 수열 
 
 : 두 문자열 중 공통적인 부분만 뽑아 만든 부분 수열 중 최대로 길이가 긴 것 
 

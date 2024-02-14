@@ -1,17 +1,13 @@
 ---
 published: true
-title: "BinarySearch-평행한 두 직선의 조건"
-categories: 알고리즘 
+title: "BinarySearch-평행"
+categories: Algorithm 
 tag: [algorithm, 프로그래머스, BinarySearch, Hash ] 
 toc: true
 author_profile: false 
 ---
 
 
-
-### 7번. 평행한 두 직선의 조건 
-
----
 
 ##### 문제 : 평행 (LEVEL 2)
 
@@ -61,11 +57,11 @@ author_profile: false
 
 ##### 해설 풀이 ✔
 
-##### logic : 평행은 '기울기' 로 풀어야한다 
+**logic : 평행은 '기울기' 로 풀어야한다** 
 
 (not 두 좌표값 차이 --> 절대값 등 고려해야할 것 多)
 
-=> 입력되는 좌표 개수가 정해져 있고, 많지 않으니 각 좌표에 대한 기울기를 다 구하고 비교해 닾 도출 
+=> 입력되는 좌표 개수가 정해져 있고, 많지 않으니 각 좌표에 대한 기울기를 다 구하고 비교해 답 도출 
 
 ```java
 class Solution {

@@ -1,7 +1,7 @@
 ---
 published: true
 title: "Greedy-거스름돈" 
-categories: 알고리즘 
+categories: Algorithm 
 tag: [algorithm, 프로그래머스, greedy] 
 toc: true
 author_profile: false 
@@ -11,8 +11,6 @@ author_profile: false
 
 
 
-## 거스름 돈
-
 ##### 문제 
 
 - 책, '이것이 취업을 위한 코딩 테스트다' / ch3 Greedy / 예제 3-1 (p.87)
@@ -21,7 +19,7 @@ author_profile: false
 
 
 
-### Step 1. 문제 접근 
+##### Step 1. 문제 접근 
 
 이 문제는 가장 적은 갯수의 동전으로 손님에게 거슬러 줘야하므로, 최대한 큰 단위의 동전들로 거스름돈 액수를 구성해야한다. 
 
@@ -29,9 +27,7 @@ author_profile: false
 
 
 
-
-
-### Step 2. 선택한 알고리즘 
+##### Step 2. 선택한 알고리즘 
 
 Greedy 알고리즘 
 
@@ -41,7 +37,7 @@ Greedy 알고리즘
 
 
 
-### Step 3. 선택 이유 
+##### Step 3. 선택 이유 
 
 가장 큰 화폐부터 고려한다고 가정했을 때(turn), 해당 차례에 동전을 가장 많이 사용하는 것이 궁극적으로 최적의 해가 된다. 
 
@@ -53,9 +49,7 @@ Greedy 알고리즘
 
 
 
-
-
-### Step 4. 구현 (코드)
+##### Step 4. 구현 (코드)
 
 ```java
 public class 거스름돈문제 {
