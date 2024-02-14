@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Shortest Path-간단한 다익스트라" 
+title: "Shortest Path-다익스트라 알고리즘" 
 categories: Algorithm 
 tag: [algorithm, Programmers, Shortest Path, Dikstra] 
 toc: true
@@ -19,7 +19,7 @@ author_profile: false
 
 
 
-
+<br>
 
 
 
@@ -29,7 +29,7 @@ author_profile: false
 
 그리디 알고리즘과 유사 : **매번**, **가장** 비용이 적은 노드를 선택해 임의의 과정 반복 . 
 
-
+<br>
 
 
 
@@ -39,7 +39,7 @@ author_profile: false
 
 방문하지 않는 노드 중 가장 최단거리가 짧은 노드를 선택하고, 그에 따른 최단거리 갱신 과정을 반복 
 
-
+<br>
 
 
 
@@ -55,6 +55,8 @@ author_profile: false
 
    ​		: 
 
+<br>
+
 
 
 ##### Point 
@@ -63,7 +65,7 @@ author_profile: false
 
 > 한 단계당 하나의 노드에 대한 최단 거리를 확실히 찾음 
 
-
+<br>
 
 
 
@@ -75,11 +77,11 @@ author_profile: false
 
 >  시간 복잡도 : O(V^2)
 
-매 단계마다 모든 노드를 확인해 최단 거리 노드 탐색 O(V) 
+선형 탐색 : 매 단계마다 모든 노드를 확인해 최단 거리 노드 탐색 O(V) 
 
-+해당 노드에 인접한 노드들 최단거리 비교/갱신 O(V)
+➕ 그래프 탐색 : 해당 노드에 인접한 노드들 최단거리 비교/갱신 O(V)
 
-
+<br>
 
 *코드*
 
@@ -87,12 +89,8 @@ author_profile: false
 import java.util.* ; 
 
 class Node{
-	private int index ; 
-	private int distance ; 
-	public Node(int index, int distance) {
-		this.index = index;  // 노드 번호 
-		this.distance = distance ;  // 간선 가중치 ; 이전 노드에서 현재 노드까지의 거리  
-	}
+	private int index ; // 노드 번호 
+	private int distance ; // 특정 노드에서 해당 노드까지의 거리 
 } // Node 
 
 public class Dikstra_Simple { // O(V^2) , 전체 노드 갯수 5000개 이하 
@@ -149,5 +147,68 @@ public class Dikstra_Simple { // O(V^2) , 전체 노드 갯수 5000개 이하
 } // class 
 ```
 
+<br> <br>
 
+
+
+**복잡 ' Ver 구현**
+
+구현하기 더 까다롭지만 빠르게 동작하는 코드 
+
+
+
+> 시간 복잡도 O(N log N)
+
+**우선순위 큐**를 사용해 가장 거리가 짧은 노드를 O(log N) 시간 복잡도로 찾아낸다 ! 
+
+즉, 최소 힙에 노드들의 최단 거리 정보를 저장한다. 
+
+<br>
+
+
+
+```java
+class Node implements Comparable<Node>{
+	private int index ; 
+	private int distance ; 
+
+	@Override
+	public int compareTo(Node other) {
+		// 음수가 나오면 this가 우선 
+		if(this.distance < other.distance) {
+			return -1 ; 
+		}
+		return 1 ; 
+	}
+} // Node 
+
+public class Dikstra_Queue {    
+	public static void dijkstra(int start) {
+		PriorityQueue<Node> pq = new PriorityQueue<>() ; 
+		pq.offer(new Node(start,0)) ; // 시작 노드로 가기 위한 최단 경로는 0 
+		d[start] = 0 ; 
+		
+		while(!pq.isEmpty()) {
+			Node node = pq.poll() ; // 가장 짧은 최단거리 노드 꺼내기 
+			int dist = node.getDistance() ; 
+			int now= node.getIndex() ; 
+			
+			// 현재 노드가 이미 처리된 적이 있는 노드라면 무시
+			if(d[now] < dist) continue ; 
+			
+			for(int i = 0 ; i < graph.get(now).size() ; i++) {
+				int cost = d[now] + graph.get(now).get(i).getDistance() ; // 인접 노드들 방문 
+				
+				// 현재 노드를 거치는 거리가 더 짧은 경우 
+				if(cost < d[graph.get(now).get(i).getIndex()]) {
+					// 최단 거리 갱신 
+					d[graph.get(now).get(i).getIndex()] = cost ; 
+					// 해당 인접 노드 큐에 추가 (왜 더 짧아야 추가?? ) 
+					pq.offer(new Node(graph.get(now).get(i).getIndex(), cost)); 
+				} // if 
+			} // for 
+		} // while
+	} // dijkstra
+} // class
+```
 
