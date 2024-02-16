@@ -2,7 +2,7 @@
 published: true
 title: "Shortest Path-미래도시" 
 categories: Algorithm 
-tag: [algorithm, Programmers, Shortest Path, Dikstra] 
+tag: [algorithm, Programmers, Shortest Path, FloydWarshall] 
 toc: true
 author_profile: false 
   
