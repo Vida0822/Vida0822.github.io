@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Sort-직접 기준 정렬하기" 
+title: "Sort-가장 큰 수" 
 categories: Algorithm 
 tag: [algorithm, Programmers, 정렬, 직접기준정렬, compare ] 
 toc: true
@@ -9,10 +9,6 @@ author_profile: false
 ---
 
 
-
-### 4번. 정렬 - 직접 기준 정하기 
-
----
 
 ##### 문제 : 가장 큰 수 (Level 1)
 
