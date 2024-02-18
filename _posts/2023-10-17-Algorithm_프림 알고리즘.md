@@ -50,14 +50,9 @@ author_profile: false
 ##### 코드(구현)
 
 ```java
-package greedy;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.* ; 
 
 public class 프림알고리즘 {
-
 	public class Node_Prim implements Comparable<Node_Prim>{
 		int index ; 
 		int cost ; 
