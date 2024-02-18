@@ -104,7 +104,7 @@ public class 크루스칼알고리즘 {
 	} // find 
 	
 	public static void main(String[] args) {
-		int[][] graph = {{1, 2, 6}, {1, 3 , 3}, {1, 4, 1}, {2, 5, 4}, {3, 4, 2}, {3, 5, 5} , {4, 5, 7}} ; 
+		int[][] graph = {{1,3,3}, {1, 4, 1}, {2, 5, 4}, {3, 4, 2}, {3, 5, 5} , {4, 5, 7}} ; 
 		int[] parent = new int[6] ; 
 		int total = 0; // 최소 신장 트리의 가중치 총합
 		
