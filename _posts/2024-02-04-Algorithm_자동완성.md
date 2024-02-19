@@ -1,6 +1,6 @@
 ---
 published: true
-title: "문자열-자동완성" 
+title: "Tree-자동완성" 
 categories: Algorithm 
 tag: [algorithm, Programmers, Trie] 
 toc: true
