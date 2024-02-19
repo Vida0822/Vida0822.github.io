@@ -1,6 +1,6 @@
 ---
 published: true
-title: "BackTracking-여행경로" 
+title: "DFS-여행경로" 
 categories: Algorithm 
 tag: [algorithm, Programmers, Graph, BackTracking, DFS] 
 toc: true
