@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Sort-여러가지 정렬기법" 
+title: "Sort-정렬 구현(소스코드)" 
 categories: Algorithm 
 tag: [algorithm, Sort] 
 toc: true

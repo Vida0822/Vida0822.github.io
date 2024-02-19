@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Sort-여러가지 정렬기법" 
+title: "Sort-Comparator(Java)" 
 categories: Algorithm 
 tag: [algorithm, Sort, Java] 
 toc: true
