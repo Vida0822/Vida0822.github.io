@@ -11,11 +11,31 @@ author_profile: false
 
 ##### 문제 : 징검 다리 (LEVEL 4)
 
-* 목적 : 바위를 n 개 제거한 뒤 각 지점 사이 거리의 최솟값 중에 가장 큰 값을 return   
+바위를 n 개 제거한 뒤 각 지점 사이 거리의 최솟값을 구한다.
+
+그 최솟값 중에 가장 큰 값을 return   
+
+<br>
 
 
 
-##### logic : 지점간 최소 거리를 탐색의 범위로 해서 그 안의 최댓값을 찾음 
+##### 파라메트릭 서치 
+
+최적화 문제를 결정문제로 바꾸어 해결하는 기법 
+
+되냐/안되냐?를 범위를 좁혀가며 탐색함으로써 최적의 해를 구함
+
+=> 조건 : 현재 이 높이로 자르면 떡 최소 조건 만족 ? --> 만족 여부(예, 아니오) 도출 
+
+=> 범위를 좁힐 때 '이진 탐색' 
+
+<br>
+
+
+
+##### 핵심 아이디어
+
+: 지점간 최소 거리를 탐색의 범위로 해서 그 안의 최댓값을 찾음 
 
 |ㅡㅡㅡㅡㅡㅡㅡㅡㅡ|ㅡㅡㅡㅡㅡㅡㅡㅡㅡ|
 
@@ -36,142 +56,62 @@ left : 1, right: 25, mid: 13
 
 시작 ~ 4번 바위의 거리는 4이며, 13 보다 작다. 4번 바위 제거 
 
-시작 ~ 11번 바위의 거리는 11이며, 13보다 작다. 11번 바위 제거 
-
-시작 ~ 14번 바위의 거리는 14이며, 13보다 크다. 유지 
-
-14번 ~ 17번 바위의 거리는 3이며, 13보다 작다. 17번 바위 제거 
-
-14번 ~ 21번 바위의 거리는 7이며, 13보다 작다. 21번 바위 제거 
-
-14번 ~ 도착지까지의 거리는 11이며, 13보다 작다. 14번 바위 제거
-
- 
-
 지점 간 최소거리를 13으로 가정하면, 총 6개의 바위가 제거 된다.
 
 우리가 제거 해야할 바위는 2개이므로 최소 거리를 줄여서 재탐색 해야 한다. 
 
+<br>
 
 
 
+##### 구현 (코드)
 
 ```java
-import java.util.*;
+import java.util.* ; 
 class Solution {
     public int solution(int distance, int[] rocks, int n) {
-        int answer = 0;
-    
-        Arrays.sort(rocks);
+        int answer = 0 ; 
+        Arrays.sort(rocks) ;  // 돌이 놓여진 위치 정렬
         
-        int left = 1;
-        int right = distance;
-        while(left <= right){
-            int mid = (left + right)/2;
-            if(getRemovedRockCnt(rocks, mid, distance) <= n){
-                answer = mid;
-                left = mid + 1;
-            } else {
-                right = mid - 1; 
+        // 이분 탐색 : 바위를 n개 제거한 뒤 각 지점 사이 거리의 최솟값
+				//  ㄴ 그 최솟값이 될 수 있는 값 중 최댓값이 최종적으로 구하는 값 
+        int left = 1 ;  
+        int right = distance ; 
+        while(left <= right){ 
+            int mid = (left+right)/2 ; 
+            if(getRemovedRockCnt(rocks ,mid, distance)<=n){ // 해당 mid가 답이 되는 돌 제거 수가 조건보다 적으면 
+                left = mid + 1 ; // 최소 거리를 더 크게 잡아서 돌을 더 제거시켜주고  
+                 answer = mid ; // 다음 반복에서 해가 안나올 수 있기 때문에 허용 가능 범위일 때 일단 answer에 mid값을 저장해준다 **  
+            }else{ // 해당 mid가 답이 되기 위해 돌이 더 많이 제거 되면 
+                right = mid -1; // 돌간 최소 거리를 작게 잡아서 돌을 덜 제거해야한다 
             }
         }
-        
-        return answer;
+        return answer ; 
     }
-    
     public int getRemovedRockCnt(int[] rocks, int mid, int distance){
-        // mid가 바위(지점) 간 최소 거리가 되어야 함
-        // 그렇게 하기 위해 제거 해야할 바위의 개수를 리턴한다. 
-        int before = 0; 
-        int end = distance;
+        // mid 가 바위 지점 간 최소거리가 되기 위해 제거해야할 바위의 수를 return한다 
+        // mid가 바위 지점간 최소 거리가 되려면 mid보다 작은 숫자의 거리가 나오면 해당 돌을 제거해야한다 
+        // 실제로 돌을 제거하지 않고 제거해야'할' 돌의 갯수를 세는게 포인트 
+        int before = 0 ; // 출발지 
+        int end = distance ; 
         
-        int removeCnt = 0;
-        for(int i = 0; i < rocks.length; i++){
-            if(rocks[i] - before < mid) {
-                removeCnt++;
-                continue;
+        int removeCnt = 0 ; 
+        for(int i = 0 ; i < rocks.length ; i++){ // 돌 하나하나 검사하면서 
+            if(rocks[i] - before < mid){ // 이전 돌과의 거리가 mid보다 작으면 
+                removeCnt++ ; // mid가 최솟값이 아닌게 되므로 돌제거 (제거할 돌 수 ++)  
+                continue ; 
             }
-            before = rocks[i];
+            before = rocks[i] ;  // '이전 돌'을 검사한 돌로 갱신
         }
-        if(end - before < mid) removeCnt++;
-
-        return removeCnt;
+        if(end - before < mid) removeCnt++ ; // 마지막 돌과 도착지 사이의 거리(mid보다 짧으면 마지막 돌 제거)
+        return removeCnt ; 
     }
-    
 }
 ```
 
+<br>
 
 
 
 
-
-
-
-
-
-
----
-
-##### 해설 풀이 ✔
-
-**logic : 정답이 포함된 시간의 범위는 0 ~ 가장 오래 걸린 심사 시간**
-
-모든 사람이 심사를 받는데 걸리는 시간의 최솟값
-
- = 0 (left) ~ 모든 사람이 가장 오래걸리는 심사대에서만 심사를 받은 시간 (right)
-
-
-
-[이분 탐색으로 푸는 법] 
-
-1. 내가 찾아야 할 정답의 범위를 left ~ right로 정한다. ** 
-  * 탐색의 정의와 범위 지정 중요 (어려운 문제일수록)
-
-    --> **'모든 사람이 심사를 받는데 걸리는 시간'**
-
-    |--------------------------------|-------------------------------------|
-
-2. 정답을 mid로 간주한 후, 해당 정답이 유효한지 살펴본다.
-
-   --> 정답 : 모든 사람이 심사를 받을 수 있는 시간 중 최솟값 
-
-3. 2번 여부를 따지며 left와 right의 범위를 좁힌다.
-
-4. left > right가 되면 반복을 끝내고 답을 반환한다
-
-
-
-```java
-import java.util.*;
-
-public class 입국심사_해설 {
-	public long solution(int n , int[] times) {
-		
-		long answer = 0 ; 
-		Arrays.sort(times); // 이분탐색은 정렬이 필수 
-		
-		long left = 0 ; 
-		long right = times[times.length - 1] * (long) n ; // 모든 사람이 가장 느리게 심사 
-		
-		while(left <= right) {
-			long mid = (left+right)/2 ; 
-			long complete = 0 ; //  mid 시간 동안 검사받을 수 있는 사람 수 
-			
-			for(int i = 0 ; i < times.length ; i ++) {
-				complete += mid/ times[i] ; 
-                // ex. mid = 10, times = {2, 3, 4}인 경우,  10 / 2 + 10 / 3 + 10 / 4로 총 5+3+2=10명 가능
-			}
-		
-			if(complete < n ) { // 검사를 다 받지 못하면 
-				left = mid +1 ; // 오른쪽 범위에서 이분 탐색 
-			}else {  // 검사를 다 받을 수 있으면 
-				answer = mid ;  // 일단 그 값을 answer에 담아 두고
-				right = mid - 1 ; // 왼쪽 범위에서 더 짧은 시간안에 가능한지 검사 	
-			}
-		}
-		return answer  ;  // 더 이상 최대값 안나오면 저장해둔 answer가 답	
-	} // solution
-} // class 
-```
 
