@@ -13,126 +13,89 @@ author_profile: false
 
 * 목적 : 모든 사람이 심사를 받는데 걸리는 시간의 최솟값 return  
 
+<br> 
 
 
-##### 나의 풀이
 
-1. 심사중 여부를 나타내는 배열 생성 
+##### 이분 탐색 
 
-2. 심사대 배열의 요소 값 정렬 
+1. 탐색의 정의와 범위 지정 중요 (어려운 문제일수록) 
 
-3. for문 : 1분씩 늘어나는? 
+   : **'모든 사람이 심사를 받는데 걸리는 시간'**
 
-4.  요소값 중 n번째 index에 위치한 심사원의 심사 시간을 첫번째 심사시간으로 fix 
+2. 내가 찾아야 할 정답의 범위를 left ~ right로 정한다. ** 
 
-   (한번 쫙 채우기)
+   : 0 ~ 가장 오래 걸린 심사 시간(최악의 경우 심사시간)
 
-5. 심사 중이 아닌 배열 요소 값 중 가장 작은 값 
+  * left : 0 
+  * rigth : times[0] * (long) n  ; // 모든 사람이 가장 빠른 심사대에서만 검사  
 
-   vs 심사 중인 배열 요소 중 가장 작은 값 + 남은 심사 시간 
+3. 정답을 mid로 간주한 후, 해당 정답이 유효한지 살펴본다.
+
+--> 정답 : 모든 사람이 심사를 받을 수 있는 시간 중 최솟값 
+
+4. 2번 여부를 따지며 left와 right의 범위를 좁힌다.
+
+5. left > right가 되면 반복을 끝내고 답을 반환한다
+
+<br> 
 
 
+
+##### 비즈니스 로직 
+
+이분탐색 문제에선 탐색 범위 지정 다음으로 해당 mid 값이 유효한지를 검사하는 **실질적인 핵심로직**이 중요하다
+
+> Point : 사람 입장이 아닌 '심사대 입장'에서 생각
+
+대기 최적화(남은시간+대기시간 고려)는 사람들이 알아서 하니 각 심사대는 최대한의 효율로 알아서 돌아간다고 가정 
+
+--> 각 심사대별로 주어진 심사시간(mid)안에 검사 가능한 모든 인원수를 누적하면 됨 
+
+ ex. mid = 10, times = {2, 3, 4}인 경우,  10 / 2 + 10 / 3 + 10 / 4로 총 5+3+2=10명 가능
+
+<br> 
+
+##### 주의 사항 
+
+사용되는 자료형이 long이라 잘 맞춰주지 않으면 테스트 케이스 오류가 난다 
+
+<br>
+
+
+
+##### 구현(코드)
 
 ```java
-import java.util.Arrays;
-
-public class 입국심사 {
-	public long solution(int n, int[] times) {
+import java.util.* ; 
+class Solution {
+    public long solution(int n, int[] times) {
         
-		long answer = 0;        
-		Arrays.sort(times);
-
-		int[] checking = new int[times.length] ; 
-		for (int i = 1; i <= n ; i++) {
-			checking[i] = 1 ; 
-		} 
-		if(n < times.length) {
-			answer = times[n] ; 
-		}else {
-			answer = times[times.length -1] ; 
-		}
+        Arrays.sort(times) ; 
        
-        while(n>= 0) {
-        	answer ++ ;
-        	int emptyIndex = Arrays.binarySearch(checking, 0) ; 
-        	int checkingIndex = Arrays.binarySearch(checking, 1) ;        
-        } // while     
-        return answer;
+        long answer = 0 ; 
+        long left = 0 , right = times[0] * (long) n  ; 
+        while(left <= right){
+            long mid = (left + right) / 2 ;             
+            if(isPossible(n,times,mid)){
+                answer = mid ; 
+                right = mid -1 ; 
+            }else
+                left = mid + 1; 
+        }
+        return answer ; 
+    }
+    
+    // ** 비즈니스 로직 ** : 해당 시간안에 n 명 모두 심사 가능 ? 
+    public boolean isPossible(int n, int[] times, long maxMinutes){
+        long complete = 0 ; 
+        for(int i = 0 ; i < times.length ; i ++) {
+			complete += maxMinutes/ times[i] ; // ** 
+		}
+        if(complete < n)
+            return false ;
+        return true ; 
     }
 }
-```
-
-
-
-
-
-
-
-
-
-
-
----
-
-##### 해설 풀이 ✔
-
-**logic : 정답이 포함된 시간의 범위는 0 ~ 가장 오래 걸린 심사 시간**
-
-모든 사람이 심사를 받는데 걸리는 시간의 최솟값
-
- = 0 (left) ~ 모든 사람이 가장 오래걸리는 심사대에서만 심사를 받은 시간 (right)
-
-
-
-[이분 탐색으로 푸는 법] 
-
-1. 내가 찾아야 할 정답의 범위를 left ~ right로 정한다. ** 
-  * 탐색의 정의와 범위 지정 중요 (어려운 문제일수록)
-
-    --> **'모든 사람이 심사를 받는데 걸리는 시간'**
-
-    |--------------------------------|-------------------------------------|
-
-2. 정답을 mid로 간주한 후, 해당 정답이 유효한지 살펴본다.
-
-   --> 정답 : 모든 사람이 심사를 받을 수 있는 시간 중 최솟값 
-
-3. 2번 여부를 따지며 left와 right의 범위를 좁힌다.
-
-4. left > right가 되면 반복을 끝내고 답을 반환한다
-
-
-
-```java
-import java.util.*;
-
-public class 입국심사_해설 {
-	public long solution(int n , int[] times) {
-		
-		long answer = 0 ; 
-		Arrays.sort(times); // 이분탐색은 정렬이 필수 
-		
-		long left = 0 ; 
-		long right = times[times.length - 1] * (long) n ; // 모든 사람이 가장 느리게 심사 
-		
-		while(left <= right) {
-			long mid = (left+right)/2 ; 
-			long complete = 0 ; //  mid 시간 동안 검사받을 수 있는 사람 수 
-			
-			for(int i = 0 ; i < times.length ; i ++) {
-				complete += mid/ times[i] ; 
-                // ex. mid = 10, times = {2, 3, 4}인 경우,  10 / 2 + 10 / 3 + 10 / 4로 총 5+3+2=10명 가능
-			}
-		
-			if(complete < n ) { // 검사를 다 받지 못하면 
-				left = mid +1 ; // 오른쪽 범위에서 이분 탐색 
-			}else {  // 검사를 다 받을 수 있으면 
-				answer = mid ;  // 일단 그 값을 answer에 담아 두고
-				right = mid - 1 ; // 왼쪽 범위에서 더 짧은 시간안에 가능한지 검사 	
-			}
-		}
-		return answer  ;  // 더 이상 최대값 안나오면 저장해둔 answer가 답	
-	} // solution
-} // class 
 ```
 
