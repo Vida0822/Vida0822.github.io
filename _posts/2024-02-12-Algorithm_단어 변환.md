@@ -11,6 +11,21 @@ author_profile: false
 
 
 
+##### 문제
+
+단어 begin, target과 단어의 집합 words가 매개변수로 주어질 때, 최소 몇 단계의 과정을 거쳐 begin을 target으로 변환할 수 있는지 return하라. 변환은 아래와 같은 규칙을 따라야한다.
+
+1. 한 번에 한 개의 알파벳만 바꿀 수 있다.
+2. words에 있는 단어로만 변환할 수 있다.
+
+
+
+<br>
+
+
+
+##### 구현(코드)
+
 ```java
 import java.util.* ; 
 class Solution{    

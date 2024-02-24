@@ -11,6 +11,18 @@ author_profile: false
 
 
 
+##### 문제 
+
+격자의 크기 m, n과 물이 잠긴 지역의 좌표를 담은 2차원 배열 puddles이 매개변수로 주어집니다. 
+
+오른쪽과 아래쪽으로만 움직여 집에서 학교까지 갈 수 있는 최단경로의 개수를 1,000,000,007로 나눈 나머지를 return 
+
+<br>
+
+
+
+##### 코드(구현)
+
 ```java
 import java.util.* ; 
 class Solution {   
