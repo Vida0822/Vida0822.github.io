@@ -1,6 +1,6 @@
 ---
 published: true
-title: "-가사검색" 
+title: "Tree-가사검색" 
 categories: Algorithm 
 tag: [algorithm, Programmers, PriorityQueue] 
 toc: true
