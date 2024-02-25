@@ -12,7 +12,9 @@ author_profile: false
 
 ##### 문제(카카오)
 
-가사에 사용된 모든 단어들이 담긴 배열 `words`와 찾고자 하는 키워드가 담긴 배열 `queries`가 주어질 때, 각 키워드 별로 매치된 단어가 몇 개인지 **순서대로** 배열에 담아 반환
+가사에 사용된 모든 단어들이 담긴 배열 `words`와 찾고자 하는 키워드가 담긴 배열 `queries`가 주어질 때, 
+
+각 키워드 별로 매치된 단어가 몇 개인지 **순서대로** 배열에 담아 반환
 
 검색 키워드는 와일드카드 문자인 `'?'`가 하나 이상 포함돼 있으며, `'?'`는 각 검색 키워드의 접두사 아니면 접미사 중 하나로만 주어집니다.
 
@@ -20,7 +22,29 @@ author_profile: false
 
 
 
+##### Trie 
+
+문자열 자체가 자료 구조 전체에 분산
+
+특정 노드(A)의 모든 자손은 문자열의 공통 접두사(A)이다. 즉 자손들은 특정 접두사를 공유하는것이 전제된다.  
+
+
+
+> Trie 클래스의 구조
+
+필드 : childs, depth, (parent) 
+
+메서드 : insert, find 
+
+<br>
+
+
+
 ##### 핵심 아이디어 
+
+양방향 Trie와 역방향 Trie를 만들어준다. 
+
+와일드카드(?)는 쿼리의 앞과 뒤에 존재한다. 따라서 뒤집힌 문자열로 구성된 Trie도 생성해야한다. 
 
 
 
@@ -28,114 +52,174 @@ author_profile: false
 
 
 
-##### 내 코드 : 처리하지 못한 경우 재검사 
+##### 실패 : 선형탐색 
+
+> 시간 복잡도 : O(N^2*M)
+
+* 시간 복잡도  O(queries.length * words.length * 단어길이)  
+* 최악의 경우 O(100000 * 100000 * 10000) 
+
+```java
+import java.util.* ; 
+class Solution {
+    public int[] solution(String[] words, String[] queries) {
+        
+        // 쿼리의 단어만큼 반복
+        int len = queries.length ; 
+        int[] answer = new int[len] ; 
+        for(int i = 0 ; i < len ; i++){
+            
+            int count = 0 ; 
+            for(String word : words ){
+                String query = queries[i] ; 
+                if(isInBanList(query, word)) 
+                    count++ ; 
+            }
+            answer[i] = count ; 
+        }
+        return answer ; 
+    }
+    
+    public boolean isInBanList(String query, String word){
+        if(query.length() != word.length())
+            return false ; 
+        
+        for(int i = 0 ; i < query.length() ; i++){
+            char c = query.charAt(i);
+            if(c == '?')
+                continue ; 
+            
+            if(c != word.charAt(i))
+                return false; 
+        }
+        return true; 
+    }
+}
+```
+
+<br>
+
+
+
+##### 풀이 1 : Trie 
 
 ```java 
-import java.util.*;
-
-class Job implements Comparable<Job> {
-    int startTime;
-    int duration;
-
-    public Job(int startTime, int duration) {
-        this.startTime = startTime;
-        this.duration = duration;
-    }
-
-    @Override
-    public int compareTo(Job other) {
-        return this.duration - other.duration;
-    }
-}
-
+import java.util.* ; 
 class Solution {
-    private int totalCompletionTime = 0;
-    private int endTime = 0;
-    private PriorityQueue<Job> jobQueue = new PriorityQueue<>();
-    private boolean[] completed;
-
-    public int solution(int[][] jobs) {
-        Arrays.sort(jobs, Comparator.comparingInt((int[] job) -> job[0]).thenComparingInt(job -> job[1]));
-
-        completed = new boolean[jobs.length];
-        processJobs(jobs);
-
-        // 처리 x 요청 있는 경우 재검사 
-        for (int i = 0; i < completed.length; i++) {
-            if (!completed[i]) {
-                completed[i] = true;
-                jobQueue.add(new Job(jobs[i][0], jobs[i][1]));
-                processJobs(jobs);
+    class Trie{
+        // 필드 
+        Map<Integer,Integer> lenMap = new HashMap<>() ; 
+        Trie[] child = new Trie[26] ; 
+        
+        // 메서드
+        void insert(String str){ 
+            Trie node = this; 
+            int len = str.length() ; 
+            lenMap.put(len, lenMap.getOrDefault(len,0)+1) ; 
+            
+            // 한글자씩 Trie에 삽입 
+            for(char ch : str.toCharArray()){
+                int idx = ch-'a' ; 
+                if(node.child[idx] == null)
+                    node.child[idx] = new Trie() ; 
+                
+                node = node.child[idx] ; 
+                node.lenMap.put(len, node.lenMap.getOrDefault(len,0)+1); 
             }
-        }
-        return totalCompletionTime / jobs.length;
+        } // insert 
+        
+				// 특정 단어가 Trie에 있는지 확인 
+        int find(String str, int i){
+            if(str.charAt(i) == '?')
+                return lenMap.getOrDefault(str.length(), 0) ; 
+            int idx = str.charAt(i) - 'a' ; 
+            return child[idx] == null? 0 : child[idx].find(str, i+1) ; 
+        } // find 
+    } // Trie
+    
+		// 문자열을 뒤집는 메서드 
+    String reverse(String s){
+        return new StringBuilder(s).reverse().toString() ; 
     }
-
-    private void processJobs(int[][] jobs) {
-        while (!jobQueue.isEmpty()) {
-            Job job = jobQueue.poll();
-
-            if (job.startTime > endTime)
-                endTime = job.startTime + job.duration;
-            else
-                endTime += job.duration;
-
-            totalCompletionTime += endTime - job.startTime;
-
-            for (int i = 0; i < jobs.length; i++) {
-                if (completed[i]) continue;
-                if (jobs[i][0] < endTime) {
-                    completed[i] = true;
-                    jobQueue.add(new Job(jobs[i][0], jobs[i][1]));
-                }
-            } // for 
-        } // while 
-    } // processJobs
+    
+    public int[] solution(String[] words, String[] queries) {
+        Trie front = new Trie() ; 
+        Trie back = new Trie() ; 
+        /*
+        역방향 Trie를 만드는 이유 : queries에서 첫글자가 '?'면 ?를 자식으로 갖는 Trie를 만들기 힘들어서?? 
+        */
+        // 후보 단어들 Trie에 삽입 (insert)
+        for(String word : words){
+            front.insert(word);  
+            back.insert(reverse(word)) ; 
+        }
+        
+        // queries에 매치되는 단어들 찾기 
+        return Arrays.stream(queries).mapToInt(
+            query -> query.charAt(0) == '?' ?
+                    back.find(reverse(query),0) : 
+                    front.find(query,0)).toArray() ; 
+    }
 }
-
 ```
 
 <br> 
 
 
 
-##### 처리할 요청이 없는 경우도 한번에 고려
+##### 풀이 2 : 이분탐색
 
 ```java
-import java.util.* ; 
+import java.util.*;
 
 class Solution {
-    public int solution(int[][] jobs) {
-        int answer = 0;
+    public List<Integer> solution(String[] words, String[] queries) {
+        Map<Integer, List<String>> frontMap = new HashMap<>();
+        Map<Integer, List<String>> backMap = new HashMap<>();
 
-        // 작업이 요청되는 시점 기준으로 오름차순 정렬
-        Arrays.sort(jobs, (o1, o2) -> o1[0] - o2[0]);
+        for (String word : words) {
+            int len = word.length();
 
-        // 작업의 소요시간 기준으로 오름차순 우선순위 큐 
-        PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) -> o1[1] - o2[1]);
-
-        int jobs_index = 0; // 작업 배열 인덱스
-        int finish_job = 0; // 처리 완료된 작업 개수
-        int end_time = 0; // 작업 처리 완료 시간
-
-        while(true) {
-            if(finish_job == jobs.length) break; // 모든 작업을 처리했다면 종료
-
-            // 이전 작업 처리 중 요청된 작업 add
-            while(jobs_index < jobs.length && jobs[jobs_index][0] <= end_time) {
-                pq.add(jobs[jobs_index++]);
-            }
-
-            if(!pq.isEmpty()) { // 이전 작업 처리 중 요청된 작업이 있는 경우
-                int[] job = pq.poll();
-                answer += end_time - job[0] + job[1]; // 작업 요청부터 종료까지 걸린 시간 추가
-                end_time += job[1]; // 작업 처리 완료 시간 갱신
-                finish_job++; // 처리 완료된 작업 개수 1 증가
-            } else { // 이전 작업 처리 중 요청된 작업이 없는 경우
-                end_time = jobs[jobs_index][0]; // 다음 작업 요청 시점으로 갱신
-            }
+            frontMap.computeIfAbsent(len, i -> new ArrayList<>()).add(word);
+            backMap.computeIfAbsent(len, i -> new ArrayList<>()).add(reverse(word));
         }
-        return answer / jobs.length;
+
+        for (int key : frontMap.keySet()) {
+            frontMap.get(key).sort(null);
+            backMap.get(key).sort(null);
+        }
+
+        List<Integer> ans = new ArrayList<>();
+        for (String query : queries) {
+            List<String> list;
+            if (query.charAt(0) == '?') {
+                list = backMap.get(query.length());
+                query = reverse(query);
+            } else
+                list = frontMap.get(query.length());
+
+            if (list == null) ans.add(0);
+            else ans.add(lowerBound(list, query.replace('?', Character.MAX_VALUE))
+                    - lowerBound(list, query.replace("?", "")));
+        }
+        return ans;
+    }
+
+    int lowerBound(List<String> list, String str) {
+        int s = 0, e = list.size();
+
+        while (s < e) {
+            int m = (s + e) / 2;
+
+            if (str.compareTo(list.get(m)) <= 0)
+                e = m;
+            else s = m + 1;
+        }
+        return s;
+    }
+
+    String reverse(String s) {
+        return new StringBuilder(s).reverse().toString();
     }
 }
 ```
