@@ -38,63 +38,60 @@ author_profile: false
 import java.util.*;
 
 class Job implements Comparable<Job> {
-    int startTime;
-    int duration;
+    int startTime; // 요청 시점 
+    int duration; // 작업 소요 시간 
 
     public Job(int startTime, int duration) {
         this.startTime = startTime;
         this.duration = duration;
     }
-
     @Override
-    public int compareTo(Job other) {
-        return this.duration - other.duration;
-    }
+    public int compareTo(Job other) {return this.duration - other.duration;}
 }
 
 class Solution {
-    private int totalCompletionTime = 0;
-    private int endTime = 0;
+    private int totalCompletionTime = 0; // 총 작업 시간 
+    private int endTime = 0; // 이전 작업 종료시간
     private PriorityQueue<Job> jobQueue = new PriorityQueue<>();
-    private boolean[] completed;
+    private boolean[] completed; // 작업 완료 여부 배열
 
     public int solution(int[][] jobs) {
-        Arrays.sort(jobs, Comparator.comparingInt((int[] job) -> job[0]).thenComparingInt(job -> job[1]));
+        Arrays.sort(jobs, Comparator.comparingInt((int[] job) -> job[0]) // 요청순 정렬
+																	.thenComparingInt(job -> job[1])); // 소요시간 순 정렬
 
         completed = new boolean[jobs.length];
         processJobs(jobs);
 
-        // 처리 x 요청 있는 경우 재검사 
-        for (int i = 0; i < completed.length; i++) {
-            if (!completed[i]) {
-                completed[i] = true;
-                jobQueue.add(new Job(jobs[i][0], jobs[i][1]));
-                processJobs(jobs);
+        for (int i = 0; i < completed.length; i++) { // 작업들 하나씩 보면서 
+            if (!completed[i]) { // 수행하지 않은 작업 있으면 
+                completed[i] = true; // 검사 표시하고 
+                jobQueue.add(new Job(jobs[i][0], jobs[i][1])); // 작업 큐에 넣어주기 
+                processJobs(jobs);  // 작업 시작 
             }
         }
-        return totalCompletionTime / jobs.length;
+        return totalCompletionTime / jobs.length; // 평균 작업시간 = 총 작업시간 / 작업갯수
     }
 
     private void processJobs(int[][] jobs) {
-        while (!jobQueue.isEmpty()) {
-            Job job = jobQueue.poll();
+        while (!jobQueue.isEmpty()) { // 수행할 작업 남아있으면 
+            Job job = jobQueue.poll(); // 꺼내서 
 
-            if (job.startTime > endTime)
-                endTime = job.startTime + job.duration;
-            else
-                endTime += job.duration;
+            if (job.startTime > endTime) // 해당 작업 요청 시간이 이전 작업 종료시간보다 나중이면 
+                endTime = job.startTime + job.duration; // 작업하고 이 작업 완료 시간은 요청시간 + 작업 소요시간
+            else // 해당 작업 요청 시간이 이전 작업 종료시간보다 나중이면 
+                endTime += job.duration; // 해당 작업 종료시간에 현재 작업 검사시간 추가 
 
-            totalCompletionTime += endTime - job.startTime;
+            totalCompletionTime += endTime - job.startTime; // 총 작업 시간엔 검사 완료 시간 - 요청시간 누적
 
-            for (int i = 0; i < jobs.length; i++) {
-                if (completed[i]) continue;
-                if (jobs[i][0] < endTime) {
-                    completed[i] = true;
-                    jobQueue.add(new Job(jobs[i][0], jobs[i][1]));
+            for (int i = 0; i < jobs.length; i++) {  // 다른 작업들 검사하면서 
+                if (completed[i]) continue; // 완료한 작업이면 pass 
+                if (jobs[i][0] < endTime) { // 해당 작업이 현재 검사 작업종료시간보다 앞서면 
+                    completed[i] = true; // 방문 처리
+                    jobQueue.add(new Job(jobs[i][0], jobs[i][1]));  // 해당 작업 작업 큐에 넣어주기
                 }
-            } // for 
-        } // while 
-    } // processJobs
+            }
+        }
+    }
 }
 
 ```
