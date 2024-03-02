@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Greedy-프림 알고리즘" 
+title: "Graph-프림 알고리즘" 
 categories: Algorithm 
 tag: [algorithm, Prim, MST, Greedy] 
 toc: true
