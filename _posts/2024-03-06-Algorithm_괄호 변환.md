@@ -12,6 +12,8 @@ author_profile: false
 
 ##### 문제 
 
+* 링크 : https://school.programmers.co.kr/learn/courses/30/lessons/60058?language=python3
+
 **"균형잡힌 괄호 문자열"** p가 매개변수로 주어질 때, 주어진 알고리즘을 수행해 **"올바른 괄호 문자열"**로 변환한 결과를 return 
 
 1. 입력이 빈 문자열인 경우, 빈 문자열을 반환합니다. 
