@@ -1,8 +1,8 @@
 ---
 published: true
-title: "DP-금광" 
+title: "Sort-실패율" 
 categories: Algorithm 
-tag: [algorithm, Programmers, DP] 
+tag: [algorithm, Programmers, Sort, Comparable] 
 toc: true
 author_profile: false 
   
