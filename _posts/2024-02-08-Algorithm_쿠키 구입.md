@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Two-Pointer-쿠키 구입" 
+title: "Two Pointer-쿠키 구입" 
 categories: Algorithm 
 tag: [algorithm, Programmers, Two-pointer] 
 toc: true
