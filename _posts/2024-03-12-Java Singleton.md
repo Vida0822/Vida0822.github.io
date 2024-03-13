@@ -1,6 +1,6 @@
 ---
 published: true
-title: "OCP(Open Closed Principle)" 
+title: "Singleton Pattern" 
 categories: Java
 tag: [Java, DesighnPatern, OCP] 
 toc: true
