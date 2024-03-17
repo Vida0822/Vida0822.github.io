@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Implementation-자물쇠외 열쇠" 
+title: "Implementation-자물쇠와 열쇠" 
 categories: Algorithm 
 tag: [algorithm, Programmers, Implementation, String] 
 toc: true
