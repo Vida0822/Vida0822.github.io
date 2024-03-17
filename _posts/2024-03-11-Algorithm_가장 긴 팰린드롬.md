@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Two Pointer-정확한 순위" 
+title: "Two Pointer-가장 긴 팰린드롬" 
 categories: Algorithm 
 tag: [algorithm, Programmers, Two Pointer, 완전탐색] 
 toc: true
