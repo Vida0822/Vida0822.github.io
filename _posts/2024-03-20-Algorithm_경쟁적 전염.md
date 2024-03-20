@@ -56,9 +56,9 @@ Virus 객체를 선언하여 함께 넘겨준다
 import java.util.* ; 
 
 class Virus implements Comparable<Virus>{
-	int index;  
-	int second ; 
-	int x; 
+	int index;  // 바이러스 번호 
+	int second ; // 현재 좌표까지 증식되는데 걸린 시간 
+	int x;  // 위치 
 	int y; 
 	
 	Virus(int index, int second, int x, int y){
@@ -89,8 +89,7 @@ public class 경쟁적전염 {
 				graph[i][j] = sc.nextInt(); 
 	
 				// 전염 시작점 바이러스들 모아놓고 (0초) 
-				if(graph[i][j] != 0)
-					viruses.add(new Virus(graph[i][j], 0 , i, j)); 
+				if(graph[i][j] != 0) viruses.add(new Virus(graph[i][j], 0 , i, j)); 
 			}
 		}
         // 낮은 번호 바이러스부터 번갈아 가며 검사 
