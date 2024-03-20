@@ -2,7 +2,7 @@
 published: true
 title: "Singleton Pattern" 
 categories: Java
-tag: [Java, DesighnPatern, OCP] 
+tag: [Java, DesighnPatern, Singleton] 
 toc: true
 author_profile: false 
   
