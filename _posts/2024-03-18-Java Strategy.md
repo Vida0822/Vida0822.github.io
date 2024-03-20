@@ -154,8 +154,8 @@ class Factory{
 
 </div>
 </details> 
-    
-</br>
+
+<br>
 
 
 
@@ -241,5 +241,5 @@ class Queen extends Charactor{
 
 </div>
 </details> 
-    
-</br>
+
+<br>
