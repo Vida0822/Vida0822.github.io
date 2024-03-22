@@ -216,7 +216,7 @@ public void ticketCancelBy(ReservationInfo cancelMessage){ // 이벤트 : 티켓
     Reservation reservation = getReservationInfo(cancelMessage) ; // 예약 정보 찾아서
     reservation.softDelete(); // 삭제 
     applicationEventPublisher.publishEvent(cancelMessage); 
-    // ** TransactionalEventListener로 등록된 애들한테 메세지를 발생한다 
+    // ** TransactionalEventListener로 등록된 애들한테 메세지를 발생한다 (공지한다)
 }
 ```
 
@@ -232,8 +232,21 @@ public class TicketObserver{
     @TransactionalEventListener // TransactionalEventListener로 등록 
     public void onTicketCancelHandler(ReservationInfo cancelMessage){ 
         // 이벤트 발생시 주체가 notify(publishEvent)한 정보(cancelMessage)를 바탕으로 
-        log.info("Event Message :{}", cancelMassage) ; // 적절한 행동 수행 
+        log.info("Event Message :{}", cancelMassage) ; // 적절한 행동 수행 (update)
     }
 }
 ```
 
+<br>
+
+
+
+> ※ @EventListener
+
+@EventListener 를 사용할 경우, 이벤트를 발행하는 시점에 바로 Listener(Observer)에게 이벤트 발생의 알림과 메시지가 전달된다. 그렇기 때문에 티켓 취소 도중 예외가 발생하더라도(삭제 실패 등 트랜잭션 실행 중 오류) 옵저버에게 이벤트 메시지를 전달하게 되는 케이스가 발생할 수 있다.
+
+대신 @TransactionalEventListener 으로 Observer(Listener, Subscriber)를 등록하면 트랜잭션이 Commit 된 이후에 옵저버에 이벤트 메시지를 발생한다.
+
+log를 보면 위의 경우 조회 -> 공지 -> 삭제 순으로 이뤄지지만 아래의 경우 조회 -> 삭제 -> 공지 순으로 일어난다. 
+
+<br>
