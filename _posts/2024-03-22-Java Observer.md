@@ -1,8 +1,8 @@
 ---
 published: true
-title: "Strategy Pattern" 
+title: "Observer Pattern" 
 categories: Java
-tag: [Java, DesighnPatern, Strategy] 
+tag: [Java, DesighnPatern, Observer] 
 toc: true
 author_profile: false 
   
