@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Implementation-인구이동" 
+title: "Implementation-튜플" 
 categories: Algorithm 
 tag: [algorithm, Programmers, BFS] 
 toc: true
