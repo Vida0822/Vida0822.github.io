@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Graph-크루스칼 알고리즘" 
+title: "Kruscal-크루스칼 알고리즘" 
 categories: Algorithm 
 tag: [algorithm, Kruskal, MST, Greedy] 
 toc: true

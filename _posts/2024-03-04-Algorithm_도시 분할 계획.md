@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Graph-도시 분할 계획" 
+title: "Kruscal-도시 분할 계획" 
 categories: Algorithm 
 tag: [algorithm, Programmers, Graph, Sort] 
 toc: true

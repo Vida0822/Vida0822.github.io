@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Graph-커리큘럼" 
+title: "Topological-커리큘럼" 
 categories: Algorithm 
 tag: [algorithm, Programmers, Graph, Sort] 
 toc: true
