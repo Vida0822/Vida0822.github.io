@@ -1,8 +1,8 @@
 ---
 published: true
-title: "Implementation(문자열)-K진수에서 소수 찾기" 
+title: "문자열-K진수에서 소수 찾기" 
 categories: Algorithm 
-tag: [algorithm,Shortest Kruscal, String, 문자열, Implementation] 
+tag: [algorithm, String, 문자열, Implementation] 
 toc: true
 author_profile: false 
   
@@ -35,7 +35,7 @@ https://school.programmers.co.kr/learn/courses/30/lessons/92335
 
 
 
-##### Point
+##### 📌 Point
 
 > 문자열 다루기 
 
