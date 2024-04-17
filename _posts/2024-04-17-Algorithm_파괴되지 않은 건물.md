@@ -136,14 +136,14 @@ class Solution {
         int[][] sum = new int[row+1][col+1]; // 공격 좌표 저장
         
         // Skill 뽑아서 누적합 시작점 준비 : O(K)
-        for (int[] ints : skill) {
+        for (int[] s : skill) {
             int x1 = s[1] , y1 = s[2] , x2 = s[3] , y2 = s[4] ; 
             int degree = s[5] * (s[0] == 1 ? -1 : 1) ; 
             
-            damage[x1][y1] += power; // x1 
-            damage[x1][y2 + 1] -= power; // 
-            damage[x2+1][y1] -= power;
-            damage[x2+1][y2+1] += power;
+            sum[x1][y1] += degree; // x1 
+            sum[x1][y2 + 1] -= degree; // 
+            sum[x2+1][y1] -= degree;
+            sum[x2+1][y2+1] += degree;
         }
 
         // 누적합 계산 --> board 좌표 각각 최종 변화량 도출 : O(2*N*M) = O(N*M)
