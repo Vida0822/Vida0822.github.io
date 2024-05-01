@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Math-행렬의 곱셈" 
+title: "Math-완전수" 
 categories: Algorithm 
 tag: [algorithm,Implementation, 카카오, String] 
 toc: true
