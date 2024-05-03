@@ -174,9 +174,9 @@ ex) 현재까지 카운팅된 등수 : 3 -> 완호 등수 2명 : 모두 4등 -> 
 
 ##### ✅ 코드 
 
->  최악의 경우 O(N)  : O(msg.length()) = O(1000)
+>  최악의 경우 O(N)  : O(scores.length) = O(100000)
 
-일치하는 key값이 한글자 단위로만 있는 경우 해당 문자열의 길이만큼 한글자씩 사전을 갱신(O(1))한다 
+정렬 후 전체검사 x 2 
 
 ```java
 import java.util.Arrays;
@@ -191,7 +191,7 @@ class Solution {
         // step 1. 못받는 사람 걸러내기 
         
         // a점수 내림차순, b점수 오름차순 
-        Arrays.sort(scores, (o1, o2) -> {
+        Arrays.sort(scores, (o1, o2) -> { // O(logN)
             if (o1[0] == o2[0]) {
                 return o1[1] - o2[1];
             }
@@ -201,7 +201,7 @@ class Solution {
         // 어차피 a점수는 내림차순으로 정렬되어 있으므로(prevs'a > cur.a), b점수만 이전 사람 중 최대와 비교해 작으면 제외 (prevs'b > cur.b ? )
         int max_b = scores[0][1];
         
-        for(int i = 1; i<size; i++) {
+        for(int i = 1; i<size; i++) { // O(N)
            if (scores[i][1] < max_b) { // 인센티브를 받지 못하는 경우
                if (scores[i][0] == n && scores[i][1] == m) // 완호 점수인 경우
                    return -1;
@@ -215,11 +215,11 @@ class Solution {
         }
         
         // Step 2. 점수합으로 등수 구하기 
-        Arrays.sort(scores, (o1, o2) -> (o2[0] + o2[1]) - (o1[0] + o1[1]));
+        Arrays.sort(scores, (o1, o2) -> (o2[0] + o2[1]) - (o1[0] + o1[1])); // O(logN)
         
         answer = 1;
         // counting
-        for(int i = 0; i<size; i++) {
+        for(int i = 0; i<size; i++) { // O(N)
             if (scores[i][0] + scores[i][1] > n + m) {
                 // 같은 등수가 있어도 어쨌든 완호보다는 등수가 높고 그 사람들을 다 counting한 뒤의 등수가 완호등수기 때문에 그냥 count  
                 answer ++;
