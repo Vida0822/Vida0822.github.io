@@ -1,3 +1,16 @@
+---
+published: true
+title: "JPA" 
+categories: DB/ORM
+tag: [Database, JPA, ORM, procedure] 
+toc: true
+author_profile: false 
+
+
+---
+
+
+
 * 라이브러리 (의존) 확인 
 
 1. 프로젝트 폴더 우클릭 --> OpenIn --> Terminal 

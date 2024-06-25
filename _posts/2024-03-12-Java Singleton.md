@@ -1,7 +1,7 @@
 ---
 published: true
 title: "Singleton Pattern" 
-categories: Java
+categories: Java/Spring
 tag: [Java, DesighnPatern, Singleton] 
 toc: true
 author_profile: false 

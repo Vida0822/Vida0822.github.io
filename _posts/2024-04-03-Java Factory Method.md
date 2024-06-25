@@ -1,7 +1,7 @@
 ---
 published: true
 title: "Factory Method Pattern" 
-categories: Java
+categories: Java/Spring
 tag: [Java, DesighnPatern, Factory Method] 
 toc: true
 author_profile: false 

@@ -1,7 +1,7 @@
 ---
 published: true
 title:  "Toby의 스프링부트-Spring Boot 원리"
-categories: Spring
+categories: Java/Spring
 tag: [java, Spring] 
 toc: true
 author_profile: false 

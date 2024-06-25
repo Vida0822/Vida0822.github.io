@@ -1,7 +1,7 @@
 ---
 published: true
 title: "Spring Legacy 1) Spring?" 
-categories: Spring
+categories: Java/Spring
 tag: [SPRING, legacy, framework] 
 toc: true
 author_profile: false 

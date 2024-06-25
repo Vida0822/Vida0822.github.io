@@ -1,7 +1,7 @@
 ---
 published: true
 title: "Builder Pattern" 
-categories: Java
+categories: Java/Spring
 tag: [Java, DesighnPatern, Builder] 
 toc: true
 author_profile: false 

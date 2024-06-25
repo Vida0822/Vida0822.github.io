@@ -1,7 +1,7 @@
 ---
 published: true
 title:  "Spring security"
-categories: Spring
+categories: Java/Spring
 tag: [java, Spring] 
 toc: true
 author_profile: false 

@@ -1,7 +1,7 @@
 ---
 published: true
 title: "Spring Legacy 2) DI" 
-categories: Spring
+categories: Java/Spring
 tag: [SPRING, legacy, di] 
 toc: true
 author_profile: false 

@@ -1,7 +1,7 @@
 ---
 published: true
 title: "Observer Pattern" 
-categories: Java
+categories: Java/Spring
 tag: [Java, DesighnPatern, Observer] 
 toc: true
 author_profile: false 

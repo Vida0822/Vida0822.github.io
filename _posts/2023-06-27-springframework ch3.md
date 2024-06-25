@@ -1,7 +1,7 @@
 ---
 published: true
 title: "Spring Legacy 3) AOP" 
-categories: Spring
+categories: Java/Spring
 tag: [SPRING, legacy, aop] 
 toc: true
 author_profile: false 

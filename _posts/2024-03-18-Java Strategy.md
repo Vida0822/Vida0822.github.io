@@ -1,7 +1,7 @@
 ---
 published: true
 title: "Strategy Pattern" 
-categories: Java
+categories: Java/Spring
 tag: [Java, DesighnPatern, Strategy] 
 toc: true
 author_profile: false 

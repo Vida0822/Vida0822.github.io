@@ -1,7 +1,7 @@
 ---
 published: true
 title: "Java-Scanner와 BufferedReader" 
-categories: Java
+categories: Java/Spring
 tag: [Java, Scanner, BufferedReader] 
 toc: true
 author_profile: false 
