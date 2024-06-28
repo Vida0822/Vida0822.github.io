@@ -1,6 +1,6 @@
 ---
 published: true
-title: "퍼포먼스 마케팅 용어정리 | ROAS, CTR, CTA, Page View, ROI, CVR, LTV, UV,노출과 도달, CPC, CPA, CPM, CAC,MAU 등" 
+title: "퍼포먼스 마케팅 용어정리" 
 categories: Data/AI
 tag: [ ROAS, CTR, CTA, Page View, ROI, CVR, LTV, UV,노출과 도달, CPC, CPA, CPM, CAC,MAU] 
 toc: true
@@ -219,7 +219,7 @@ CVR 과 반대되는 개념이다.<br>
 
 
 
-##### 8. CPM (Cost per Mile)** 
+##### 8. CPM (Cost per Mile)
 
 *Mile: 1000 <br>
 
