@@ -17,3 +17,5 @@ author_profile: false
 ![계량경제학 정리_page-0016](https://github.com/Vida0822/Algorithm_Study/assets/132312673/cb2ba4b6-6226-419a-9971-787a6af0b5ff)
 
 ![계량경제학 정리_page-0017](https://github.com/Vida0822/Algorithm_Study/assets/132312673/572994b2-e5e8-4946-8e69-6805543aa6f1)
+
+![계량경제학 정리_page-0021](https://github.com/Vida0822/Algorithm_Study/assets/132312673/73f71159-9a1f-4dfa-92e2-028499ce6ffc)
