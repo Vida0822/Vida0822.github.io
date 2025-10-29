@@ -13,3 +13,12 @@ author_profile: false
 
 ![계량경제학 정리_page-0049](https://github.com/Vida0822/Algorithm_Study/assets/132312673/b07c9bd7-f5e7-4f72-8a78-6c3fb5d28ec6)
 ![계량경제학 정리_page-0050](https://github.com/Vida0822/Algorithm_Study/assets/132312673/4c0d113b-f03e-4c88-a455-3f062aef3fb5)
+
+오타 
+
+> large ui -> large yi -> large xi 
+>
+> => corr(xi, ui) = 0 
+
+* X  : corr(xi, ui) = 0 
+* O : corr(xi, ui) != 0 
