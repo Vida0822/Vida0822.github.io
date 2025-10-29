@@ -10,12 +10,12 @@ author_profile: false
 
 ![계량경제학 정리_page-0036](https://github.com/Vida0822/Algorithm_Study/assets/132312673/dc1c8c02-9e00-4589-b953-f4a0e077e7da)*
 
-* 오타 
+오타 
 
-  * X :  Δy=f(x1+Δx2,x2,x3,...,xk)−f(x1,x2,...,xk)
-  * O: Δy=f(x1+Δx1,x2,x3,...,xk)−f(x1,x2,...,xk)
+* X :  Δy=f(x1+Δx2,x2,x3,...,xk)−f(x1,x2,...,xk)
+* O: Δy=f(x1+Δx1,x2,x3,...,xk)−f(x1,x2,...,xk)
 
-  
+
 
 ![계량경제학 정리_page-0037](https://github.com/Vida0822/Algorithm_Study/assets/132312673/42ea8394-8a53-4d60-98b0-e4ce90f20965)
 ![계량경제학 정리_page-0038](https://github.com/Vida0822/Algorithm_Study/assets/132312673/ec926794-38b4-49d9-93e7-0639c3f23daa)
