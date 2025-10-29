@@ -25,6 +25,10 @@ author_profile: false
 
 ![계량경제학 정리_page-0037](https://github-production-user-asset-6210df.s3.amazonaws.com/132312673/506971334-2fb6a85f-29ff-4a6f-982d-5bc413b26abb.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20251029%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251029T080150Z&X-Amz-Expires=300&X-Amz-Signature=e6fbf8f6bae2f111e5558f3411e4c500fa109408250bc3f0939b7d3ae87bd8ec&X-Amz-SignedHeaders=host)
 
+
+
+![계량경제학 정리_page-0037](https://github-production-user-asset-6210df.s3.amazonaws.com/132312673/506979084-cfebadf8-d816-45af-bba9-1d8e3049b67d.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20251029%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251029T082322Z&X-Amz-Expires=300&X-Amz-Signature=ea14cefeb27317f2a0ee76d3607da69ff62adb171dc5d350478b681c61737398&X-Amz-SignedHeaders=host)
+
 ![계량경제학 정리_page-0038](https://github.com/Vida0822/Algorithm_Study/assets/132312673/ec926794-38b4-49d9-93e7-0639c3f23daa)
 ![계량경제학 정리_page-0039](https://github.com/Vida0822/Algorithm_Study/assets/132312673/decee1b7-a106-4c06-810f-7063ca9b6a51)
 ![계량경제학 정리_page-0040](https://github.com/Vida0822/Algorithm_Study/assets/132312673/718e7fc0-ccbc-4d01-ad29-038721cf72b1)
