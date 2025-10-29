@@ -2,7 +2,7 @@
 published: true
 title: "Regression 5) Multi Regressor:OLS" 
 categories: Data/AI
-tag: [Linear Regression Model, Multi Regressor, Omitted Variable Bias, multicollinearity, Dummy Variable Trap] 
+tag: [Linear Regression Model, Multi Regressor, Omitted Variable Bias, Perfect multicollinearity, Imperfect multicollinearity, Dummy Variable Trap] 
 toc: false
 author_profile: false 
   
