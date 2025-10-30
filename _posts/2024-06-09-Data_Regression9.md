@@ -32,6 +32,13 @@ author_profile: false
 
 #### MLE (Maximum Likelihood Estimation, 최대우도법) 
 
+> 파라미터 θ=(θ1,⋯,θm) 로 구성된 확률밀도함수  P(x|θ) 에서 관측 표본 데이터 집합을 x=(x1,x2,⋯,xn) 일 때, 표본 -> 파라미터 추정 
+>
+> * x=(x1,x2,⋯,xn)  : 이미 관측된 고정값  
+> * θ=(θ1,⋯,θm) : 아직 모르는 변수 (target) 
+
+
+
 ##### Likelihood 
 
 관측 데이터가 특정 분포로부터 나왔을 가능도   <br> 
@@ -47,9 +54,15 @@ x = {1, 4, 5, 6, 9}
 
    ![계량경제학 정리_page-0054](https://vida0822.github.io/images/2024-06-09-Data_Regression9/likelihood_후보분포.png)
 
-3. 
+   
 
-   : 파라미터 θ=(θ1,⋯,θm) 로 구성된 확률밀도함수  P(x|θ) 에서 관측 표본 데이터 집합을 x=(x1,x2,⋯,xn) 일 때, 표본 -> 파라미터 추정 
+3. Likelihood(가능도) 구하기 
+
+   
+
+   
+
+   : 
 
    
 
