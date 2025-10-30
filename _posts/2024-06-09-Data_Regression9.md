@@ -22,7 +22,10 @@ author_profile: false
   > \Phi(-x) = 1 - \Phi(x)
   > $$
 
-![계량경제학 정리_page-0054]("https://vida0822.github.io/images\2024-06-09-Data_Regression9\cdf.png")
+
+
+![계량경제학 정리_page-0054](https://vida0822.github.io/images/2024-06-09-Data_Regression9/cdf.png)
+
 
 ![계량경제학 정리_page-0055](https://github.com/Vida0822/Algorithm_Study/assets/132312673/28689bbf-e970-43e5-8b35-b2ffc0a166d5)
 ![계량경제학 정리_page-0056](https://github.com/Vida0822/Algorithm_Study/assets/132312673/24c3b936-fbba-4dc2-bcd2-e0f436400139)
