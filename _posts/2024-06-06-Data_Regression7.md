@@ -5,10 +5,10 @@ categories: Data/AI
 tag: [NonLinear Regression Model, Polynomials, Logarithmic, Interaction Term] 
 toc: false
 author_profile: false 
-  
+ 
 ---
 
-![계량경제학 정리_page-0036](https://github.com/Vida0822/Algorithm_Study/assets/132312673/dc1c8c02-9e00-4589-b953-f4a0e077e7da)*
+ ![계량경제학 정리_page-0036](https://github.com/Vida0822/Algorithm_Study/assets/132312673/dc1c8c02-9e00-4589-b953-f4a0e077e7da)
 
 오타 
 
