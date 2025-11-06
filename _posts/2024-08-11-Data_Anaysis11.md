@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Analysis 기초 11) 앙상블 분석" 
+title: "ADSP 11) 앙상블 분석" 
 categories: Data/AI
 tag: [] 
 toc: false

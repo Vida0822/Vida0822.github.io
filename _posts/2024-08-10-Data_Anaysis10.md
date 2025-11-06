@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Analysis 기초 10) 분류 분석" 
+title: "ADSP 10) 분류 분석" 
 categories: Data/AI
 tag: [] 
 toc: false

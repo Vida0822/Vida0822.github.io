@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Analysis 기초 4) 상관 분석" 
+title: "ADSP 4) 상관 분석" 
 categories: Data/AI
 tag: [] 
 toc: false

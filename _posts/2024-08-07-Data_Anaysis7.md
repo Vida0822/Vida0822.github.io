@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Analysis 기초 7) 다차원 척도법" 
+title: "ADSP 7) 다차원 척도법" 
 categories: Data/AI
 tag: [] 
 toc: false

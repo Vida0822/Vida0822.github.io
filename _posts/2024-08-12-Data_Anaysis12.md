@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Analysis 기초 12) 인공 신경망 분석" 
+title: "ADSP 12) 인공 신경망 분석" 
 categories: Data/AI
 tag: [] 
 toc: false

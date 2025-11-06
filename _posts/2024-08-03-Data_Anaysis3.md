@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Analysis 기초 3) 통계" 
+title: "ADSP 3) 통계" 
 categories: Data/AI
 tag: [] 
 toc: false

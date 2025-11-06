@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Analysis 기초 2) R 실습" 
+title: "ADSP 2) R 실습" 
 categories: Data/AI
 tag: [] 
 toc: false

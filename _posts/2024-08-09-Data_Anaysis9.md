@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Analysis 기초 9) 데이터 마이닝 기본" 
+title: "ADSP 9) 데이터 마이닝 기본" 
 categories: Data/AI
 tag: [] 
 toc: false
